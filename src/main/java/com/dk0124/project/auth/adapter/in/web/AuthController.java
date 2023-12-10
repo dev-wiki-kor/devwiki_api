@@ -1,9 +1,9 @@
-package com.dk0124.project.user.adapter.in.web;
+package com.dk0124.project.auth.adapter.in.web;
 
-import com.dk0124.project.user.adapter.in.web.request.LoginRequest;
-import com.dk0124.project.user.adapter.in.web.request.SignInRequest;
-import com.dk0124.project.user.application.port.in.LoginUsercase;
-import com.dk0124.project.user.application.port.in.SignInUsecase;
+import com.dk0124.project.auth.adapter.in.web.request.LoginRequest;
+import com.dk0124.project.auth.adapter.in.web.request.SignInRequest;
+import com.dk0124.project.auth.application.port.in.LoginUsercase;
+import com.dk0124.project.auth.application.port.in.SignInUsecase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.dk0124.project.user.domain;
+package com.dk0124.project.auth.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

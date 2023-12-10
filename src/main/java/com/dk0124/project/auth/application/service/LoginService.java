@@ -1,8 +1,8 @@
-package com.dk0124.project.user.application.service;
+package com.dk0124.project.auth.application.service;
 
-import com.dk0124.project.user.application.port.in.LoginUsercase;
-import com.dk0124.project.user.application.port.out.LoginPort;
-import com.dk0124.project.user.domain.UserLoginInfo;
+import com.dk0124.project.auth.application.port.in.LoginUsercase;
+import com.dk0124.project.auth.application.port.out.LoginPort;
+import com.dk0124.project.auth.domain.UserLoginInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
