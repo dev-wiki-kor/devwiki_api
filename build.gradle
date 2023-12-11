@@ -38,6 +38,13 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-security"
     testImplementation 'org.springframework.security:spring-security-test'
 
+    //redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    //embedded-redis
+    implementation group: 'it.ozimov', name: 'embedded-redis', version: '0.7.2'
+    //redis session
+    implementation 'org.springframework.session:spring-session-data-redis'
+
     // lombok
     compileOnly 'org.projectlombok:lombok:1.18.30'
     testCompileOnly 'org.projectlombok:lombok:1.18.30'
