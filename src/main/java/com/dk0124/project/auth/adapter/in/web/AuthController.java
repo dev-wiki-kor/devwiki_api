@@ -2,7 +2,7 @@ package com.dk0124.project.auth.adapter.in.web;
 
 import com.dk0124.project.auth.adapter.in.web.request.LoginRequest;
 import com.dk0124.project.auth.adapter.in.web.request.SignInRequest;
-import com.dk0124.project.auth.application.port.in.LoginUsercase;
+import com.dk0124.project.auth.application.port.in.LoginUsecase;
 import com.dk0124.project.auth.application.port.in.SignInUsecase;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final LoginUsercase loginUsercase;
+    private final LoginUsecase loginUsercase;
     private final SignInUsecase signInUsecase;
+
+    private static final String SESSION_KEY = "SK";
 
     // TODO : sessionid 상수화 / session 자료형 클래스로 생성.
 
@@ -24,7 +26,7 @@ public class AuthController {
     public ResponseEntity<String> login(HttpServletRequest servletRequest, @RequestBody LoginRequest loginRequest) {
         var userLoginInfo = loginUsercase.login(loginRequest.userName(), loginRequest.password());
         HttpSession session = servletRequest.getSession();
-        session.setAttribute("JSESSIONID", userLoginInfo.getUserName());
+        session.setAttribute(SESSION_KEY, userLoginInfo.getUserName());
         return ResponseEntity.ok(userLoginInfo.getUserName());
     }
 
@@ -37,7 +39,7 @@ public class AuthController {
     @GetMapping("/hello")
     public ResponseEntity<String> hello(HttpServletRequest servletRequest) {
         HttpSession session = servletRequest.getSession();
-        var data = (String) session.getAttribute("JSESSIONID");
+        var data = (String) session.getAttribute(SESSION_KEY);
         return ResponseEntity.ok("hello");
     }
 }
