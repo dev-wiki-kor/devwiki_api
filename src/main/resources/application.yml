@@ -6,6 +6,12 @@ spring:
     properties:
       hibernate.default_batch_fetch_size: 100
 
+
+app:
+  var:
+    session-loc : session_loc
+    session-active : 86400  #second , 1day
+
 ---
 spring.config.activate.on-profile: local
 
