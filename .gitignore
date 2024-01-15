@@ -195,5 +195,5 @@ gradle-app.setting
 # End of https://www.toptal.com/developers/gitignore/api/macos,intellij+all,java,gradle,git
 
 
-memo_ignore
 .jqwik-database
+./memo_ignore
