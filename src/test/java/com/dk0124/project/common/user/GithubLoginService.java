@@ -20,7 +20,6 @@ public class GithubLoginService implements GithubLoginUsecase {
     private final LoginHistoryPort loginHistoryPort;
     private final CreateLoginSession createLoginSession;
 
-
     @Override
     public void login(GithubLoginRequest loginRequest) {
         // get access token & user info
@@ -35,7 +34,6 @@ public class GithubLoginService implements GithubLoginUsecase {
 
         // set session
         createLoginSession.create(loginUser);
-
     }
 
     private GithubUserInfo callGithubUserInfo(GithubLoginRequest loginRequest) {
