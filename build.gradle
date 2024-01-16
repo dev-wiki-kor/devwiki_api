@@ -16,6 +16,18 @@ repositories {
     maven { url 'https://jitpack.io' }
 }
 
+
+
+ext {
+    set('springCloudVersion', "2022.0.3")
+}
+
+dependencyManagement {
+    imports {
+        "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
 dependencies {
     // spring dependency
     implementation('org.springframework.boot:spring-boot-starter-web')
@@ -61,6 +73,10 @@ dependencies {
 
     // Logback Appender Discord
     implementation 'com.github.napstr:logback-discord-appender:1.0.0'
+
+
+    // http 통신
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.0.3'
 }
 
 test {
