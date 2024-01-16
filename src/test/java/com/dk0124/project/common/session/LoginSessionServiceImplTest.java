@@ -23,15 +23,16 @@ class LoginSessionServiceImplTest {
 
 
     @Test
-    public void 레디스_세션_객체_저장후_조회() {
+    void 레디스_세션_객체_저장후_조회() {
         var session = loginSessionService.createLoginSession(0L, Set.of(UserRole.USER, UserRole.ADMIN));
         loginSessionService.saveLoginSession(session);
 
         var retrieved = loginSessionService.getLoginSession(session.getUuid());
+        assertNotNull(retrieved);
     }
 
     @Test
-    public void 레디스_세션_갱신_후_조회() {
+    void 레디스_세션_갱신_후_조회() {
         // given
         var session = userDoLogin();
         var beforeRenew = userRequestWithSessionKey(session);
