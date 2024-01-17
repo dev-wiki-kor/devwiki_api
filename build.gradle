@@ -76,7 +76,7 @@ dependencies {
 
 
     // http 통신
-    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.0.3'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.1.0'
 }
 
 test {

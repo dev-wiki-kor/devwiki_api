@@ -7,6 +7,9 @@ import com.dk0124.project.common.user.application.GithubLoginRequest;
 import com.dk0124.project.common.user.application.port.out.LoginHistoryPort;
 import com.dk0124.project.common.user.application.port.out.UserExistCheckPort;
 
+import com.dk0124.project.common.user.application.service.GithubLoginService;
+import com.dk0124.project.common.user.exception.GithubAuthFailException;
+import com.dk0124.project.common.user.exception.UserNotExistException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -166,11 +169,10 @@ class GithubLoginServiceTest {
         assertThrows(UserNotExistException.class, () -> githubLoginService.login(githubLoginRequest));
     }
 
-    /* TODO : 세션 관련 설계 필요  */
+    /* TODO : 세션 관련 설계 필요, 별도 디렉토리에서 수행   */
     /*
     @Test
     void 로그인_실패_세션생성_실패() {
-
     }
      */
 }
