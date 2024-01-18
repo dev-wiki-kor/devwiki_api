@@ -38,8 +38,8 @@ class GithubLoginServiceTest {
     LoginHistoryPort loginHistoryPort;
 
     // TODO : 아직 세션 설계 없음.
-    @Mock
-    CreateLoginSession createLoginSession;
+    //@Mock
+    //CreateLoginSession createLoginSession;
 
     @InjectMocks
     GithubLoginService githubLoginService;

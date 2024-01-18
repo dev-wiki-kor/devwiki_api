@@ -1,6 +1,5 @@
 package com.dk0124.project.common.user.application.service;
 
-import com.dk0124.project.common.user.CreateLoginSession;
 import com.dk0124.project.common.user.GithubUserInfo;
 import com.dk0124.project.common.user.adapter.out.github.GitHubClientUserInfo;
 import com.dk0124.project.common.user.adapter.out.github.GithubClientAccessToken;
@@ -9,7 +8,6 @@ import com.dk0124.project.common.user.application.GithubLoginUsecase;
 import com.dk0124.project.common.user.application.port.out.LoginHistoryPort;
 import com.dk0124.project.common.user.application.port.out.UserExistCheckPort;
 import com.dk0124.project.common.user.exception.GithubAuthFailException;
-import com.dk0124.project.common.user.exception.UserNotExistException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,7 +21,7 @@ public class GithubLoginService implements GithubLoginUsecase {
     private final UserExistCheckPort userExistCheckPort;
     private final LoginHistoryPort loginHistoryPort;
     // TODO : 세션 등록 설계 필요 .
-    private final CreateLoginSession createLoginSession;
+    //private final CreateLoginSession createLoginSession;
 
     @Override
     public void login(GithubLoginRequest loginRequest) {
