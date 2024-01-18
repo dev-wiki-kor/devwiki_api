@@ -46,8 +46,9 @@ storage:
       data-source-properties:
         rewriteBatchedStatements: true
 
-
-
+lombok:
+  anyConstructor:
+    addConstructorProperties: true
 
 ---
 spring.config.activate.on-profile: prod

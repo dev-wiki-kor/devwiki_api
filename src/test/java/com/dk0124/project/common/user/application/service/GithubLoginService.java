@@ -22,6 +22,7 @@ public class GithubLoginService implements GithubLoginUsecase {
     private final GitHubClientUserInfo gitHubClientUserInfo;
     private final UserExistCheckPort userExistCheckPort;
     private final LoginHistoryPort loginHistoryPort;
+    // TODO : 세션 등록 설계 필요 .
     private final CreateLoginSession createLoginSession;
 
     @Override
@@ -30,14 +31,16 @@ public class GithubLoginService implements GithubLoginUsecase {
         var githubUserInfo = callGithubUserInfo(loginRequest);
 
         // get user info from db by unique info
-        var loginUser = userExistCheckPort.findByGithubUniqueId(githubUserInfo.uniqueId())
-                .orElseThrow(() -> new UserNotExistException());
+        var loginUser = userExistCheckPort.findByGithubUniqueId(githubUserInfo.uniqueId());
+
 
         // update history
-        loginHistoryPort.writeLoginHistory(loginUser.getId());
+        loginHistoryPort.writeLoginHistory(loginUser.getUserMetaId());
 
+/*
         // set session
         createLoginSession.create(loginUser);
+ */
     }
 
     private GithubUserInfo callGithubUserInfo(GithubLoginRequest loginRequest) {

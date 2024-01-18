@@ -4,12 +4,14 @@ import com.dk0124.project.auth.domain.UserRole;
 import com.dk0124.project.common.domain.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class UserMetaEntity extends BaseEntity {
 
     @Id

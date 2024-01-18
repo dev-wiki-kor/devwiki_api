@@ -69,7 +69,9 @@ dependencies {
     //test
     testCompileOnly 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'com.navercorp.fixturemonkey:fixture-monkey-starter:1.0.0'
+    //fixture monkey
+    testImplementation "com.navercorp.fixturemonkey:fixture-monkey-starter:1.0.12"
+    testImplementation 'net.jqwik:jqwik:1.7.3'
 
     // Logback Appender Discord
     implementation 'com.github.napstr:logback-discord-appender:1.0.0'

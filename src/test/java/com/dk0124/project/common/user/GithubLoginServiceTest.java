@@ -1,8 +1,9 @@
 package com.dk0124.project.common.user;
 
+import com.dk0124.project.auth.domain.UserRole;
 import com.dk0124.project.common.user.adapter.out.github.GitHubClientUserInfo;
 import com.dk0124.project.common.user.adapter.out.github.GithubClientAccessToken;
-import com.dk0124.project.common.user.adapter.out.user.User;
+import com.dk0124.project.common.user.adapter.out.user.UserGithubInfo;
 import com.dk0124.project.common.user.application.GithubLoginRequest;
 import com.dk0124.project.common.user.application.port.out.LoginHistoryPort;
 import com.dk0124.project.common.user.application.port.out.UserExistCheckPort;
@@ -18,7 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -35,6 +36,8 @@ class GithubLoginServiceTest {
     UserExistCheckPort userExistCheckPort;
     @Mock
     LoginHistoryPort loginHistoryPort;
+
+    // TODO : 아직 세션 설계 없음.
     @Mock
     CreateLoginSession createLoginSession;
 
@@ -57,12 +60,19 @@ class GithubLoginServiceTest {
                 "accessToken", "tokenType", "scope"
         );
 
-        var loginUser = new User(1L);
 
         var githubUserInfo = new GithubUserInfo("email", "uniqueId", "nickname", "profile", "pageUrl");
 
+        var userGithubInfo = UserGithubInfo.of(
+                1L,
+                1L,
+                githubUserInfo.uniqueId(),
+                Set.of(UserRole.USER),
+                true
+        );
+
         var loginSession = new LoginSession(
-                null, loginUser.getId(), List.of(Role.USER), LocalDateTime.now(), LocalDateTime.now()
+                null, userGithubInfo.getUserMetaId(), List.of(Role.USER), LocalDateTime.now(), LocalDateTime.now()
         );
 
         when(githubClientAccessToken.call(
@@ -77,13 +87,16 @@ class GithubLoginServiceTest {
 
 
         when(userExistCheckPort.findByGithubUniqueId(githubUserInfo.uniqueId()))
-                .thenReturn(Optional.of(loginUser));
+                .thenReturn(userGithubInfo);
 
-        doNothing().when(loginHistoryPort).writeLoginHistory(loginUser.getId());
+        doNothing().when(loginHistoryPort).writeLoginHistory(userGithubInfo.getUserMetaId());
 
-        when(createLoginSession.create(loginUser)).thenReturn(loginSession);
+        /*
+        // 아직 session 설계 없음 .
+        when(createLoginSession.create(any())).thenReturn(loginSession);
+        */
 
-        assertDoesNotThrow(()->githubLoginService.login(githubLoginRequest));
+        assertDoesNotThrow(() -> githubLoginService.login(githubLoginRequest));
     }
 
     @Test
@@ -144,13 +157,8 @@ class GithubLoginServiceTest {
                 "accessToken", "tokenType", "scope"
         );
 
-        var loginUser = new User(1L);
-
         var githubUserInfo = new GithubUserInfo("email", "uniqueId", "nickname", "profile", "pageUrl");
 
-        var loginSession = new LoginSession(
-                null, loginUser.getId(), List.of(Role.USER), LocalDateTime.now(), LocalDateTime.now()
-        );
 
         when(githubClientAccessToken.call(
                 eq(githubLoginRequest.cookie()),
@@ -164,7 +172,7 @@ class GithubLoginServiceTest {
 
 
         when(userExistCheckPort.findByGithubUniqueId(githubUserInfo.uniqueId()))
-                .thenReturn(Optional.empty());
+                .thenThrow(UserNotExistException.class);
 
         assertThrows(UserNotExistException.class, () -> githubLoginService.login(githubLoginRequest));
     }

@@ -3,9 +3,13 @@ package com.dk0124.project.common.user.adapter.out.user.entity;
 
 import com.dk0124.project.common.domain.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "USER_GITHUB_INFO")
+@Getter
+@NoArgsConstructor
 public class UserGithubInfoEntity extends BaseEntity {
 
     @Id
@@ -14,7 +18,7 @@ public class UserGithubInfoEntity extends BaseEntity {
     private Long id;
 
     @Column(name = "USER_META_ID")
-    private Long userId;
+    private Long userMetaId;
 
     @Column(name = "GITHUB_UNIQUE_ID")
     private String githubUniqueId;
