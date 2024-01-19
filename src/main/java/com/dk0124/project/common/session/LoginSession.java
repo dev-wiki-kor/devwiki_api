@@ -1,6 +1,6 @@
 package com.dk0124.project.common.session;
 
-import com.dk0124.project.auth.domain.UserRole;
+import com.dk0124.project.user.domain.UserRole;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

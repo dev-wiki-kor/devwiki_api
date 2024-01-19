@@ -1,8 +1,7 @@
 package com.dk0124.project.common.session;
 
 
-import com.dk0124.project.auth.domain.UserRole;
-import org.springframework.data.util.Pair;
+import com.dk0124.project.user.domain.UserRole;
 
 import java.util.Set;
 import java.util.UUID;

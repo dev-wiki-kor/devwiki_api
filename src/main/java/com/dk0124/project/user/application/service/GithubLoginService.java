@@ -1,12 +1,12 @@
 package com.dk0124.project.user.application.service;
 
 import com.dk0124.project.user.adapter.out.github.GitHubClientUserInfo;
+import com.dk0124.project.user.adapter.out.github.GitHubClientUserInfoResponse;
 import com.dk0124.project.user.adapter.out.github.GithubClientAccessToken;
 import com.dk0124.project.user.application.GithubLoginRequest;
 import com.dk0124.project.user.application.GithubLoginUsecase;
 import com.dk0124.project.user.application.port.out.LoginHistoryPort;
 import com.dk0124.project.user.application.port.out.UserExistCheckPort;
-import com.dk0124.project.user.domain.GithubUserInfo;
 import com.dk0124.project.user.exception.GithubAuthFailException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,12 +25,11 @@ public class GithubLoginService implements GithubLoginUsecase {
 
     @Override
     public void login(GithubLoginRequest loginRequest) {
-        // get access token & user info
-        var githubUserInfo = callGithubUserInfo(loginRequest);
+        // get access token & user info from github
+        var gitHubClientUserInfoResponse  = callGithubUserInfo(loginRequest);
 
         // get user info from db by unique info
-        var loginUser = userExistCheckPort.findByGithubUniqueId(githubUserInfo.uniqueId());
-
+        var loginUser = userExistCheckPort.findByGithubUniqueId(gitHubClientUserInfoResponse.uniqueId());
 
         // update history
         loginHistoryPort.writeLoginHistory(loginUser.getUserMetaId());
@@ -41,7 +40,7 @@ public class GithubLoginService implements GithubLoginUsecase {
  */
     }
 
-    private GithubUserInfo callGithubUserInfo(GithubLoginRequest loginRequest) {
+    private GitHubClientUserInfoResponse callGithubUserInfo(GithubLoginRequest loginRequest) {
         try {
             // get access token
             var githubAccessTokenResponse

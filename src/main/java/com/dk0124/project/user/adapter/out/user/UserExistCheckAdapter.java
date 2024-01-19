@@ -1,5 +1,6 @@
 package com.dk0124.project.user.adapter.out.user;
 
+import com.dk0124.project.user.domain.UserGithubInfo;
 import com.dk0124.project.user.adapter.out.user.repository.UserGithubInfoEntityRepository;
 import com.dk0124.project.user.adapter.out.user.repository.UserMetaEntityRepository;
 

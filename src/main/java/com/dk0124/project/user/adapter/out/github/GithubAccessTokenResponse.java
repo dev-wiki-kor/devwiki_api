@@ -1,4 +1,4 @@
-package com.dk0124.project.user;
+package com.dk0124.project.user.adapter.out.github;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

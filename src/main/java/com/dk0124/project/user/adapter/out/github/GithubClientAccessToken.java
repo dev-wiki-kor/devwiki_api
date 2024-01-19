@@ -1,6 +1,5 @@
 package com.dk0124.project.user.adapter.out.github;
 
-import com.dk0124.project.user.GithubAccessTokenResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;

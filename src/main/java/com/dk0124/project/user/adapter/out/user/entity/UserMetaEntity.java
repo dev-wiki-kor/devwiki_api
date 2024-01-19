@@ -1,7 +1,7 @@
 package com.dk0124.project.user.adapter.out.user.entity;
 
-import com.dk0124.project.auth.domain.UserRole;
 import com.dk0124.project.common.domain.BaseEntity;
+import com.dk0124.project.user.domain.UserRole;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

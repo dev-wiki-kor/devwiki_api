@@ -1,16 +1,16 @@
 package com.dk0124.project.common.user;
 
-import com.dk0124.project.auth.domain.UserRole;
-import com.dk0124.project.user.GithubAccessTokenResponse;
+import com.dk0124.project.user.adapter.out.github.GithubAccessTokenResponse;
 import com.dk0124.project.user.adapter.out.github.GitHubClientUserInfo;
+import com.dk0124.project.user.adapter.out.github.GitHubClientUserInfoResponse;
 import com.dk0124.project.user.adapter.out.github.GithubClientAccessToken;
-import com.dk0124.project.user.adapter.out.user.UserGithubInfo;
+import com.dk0124.project.user.domain.UserGithubInfo;
 import com.dk0124.project.user.application.GithubLoginRequest;
 import com.dk0124.project.user.application.port.out.LoginHistoryPort;
 import com.dk0124.project.user.application.port.out.UserExistCheckPort;
 
 import com.dk0124.project.user.application.service.GithubLoginService;
-import com.dk0124.project.user.domain.GithubUserInfo;
+import com.dk0124.project.user.domain.UserRole;
 import com.dk0124.project.user.exception.GithubAuthFailException;
 import com.dk0124.project.user.exception.UserNotExistException;
 import org.junit.jupiter.api.Test;
@@ -62,7 +62,7 @@ class GithubLoginServiceTest {
         );
 
 
-        var githubUserInfo = new GithubUserInfo("email", "uniqueId", "nickname", "profile", "pageUrl");
+        var githubUserInfo = new GitHubClientUserInfoResponse("email", "uniqueId", "nickname", "profile", "pageUrl");
 
         var userGithubInfo = UserGithubInfo.of(
                 1L,
@@ -151,7 +151,7 @@ class GithubLoginServiceTest {
                 "accessToken", "tokenType", "scope"
         );
 
-        var githubUserInfo = new GithubUserInfo("email", "uniqueId", "nickname", "profile", "pageUrl");
+        var githubUserInfo = new GitHubClientUserInfoResponse("email", "uniqueId", "nickname", "profile", "pageUrl");
 
 
         when(githubClientAccessToken.call(

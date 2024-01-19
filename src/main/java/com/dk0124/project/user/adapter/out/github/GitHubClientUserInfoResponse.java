@@ -1,8 +1,8 @@
-package com.dk0124.project.user.domain;
+package com.dk0124.project.user.adapter.out.github;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public record GithubUserInfo(
+public record GitHubClientUserInfoResponse(
         String email,
 
         @JsonProperty("id")

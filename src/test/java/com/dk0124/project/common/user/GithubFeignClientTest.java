@@ -1,10 +1,10 @@
 package com.dk0124.project.common.user;
 
 
-import com.dk0124.project.user.GithubAccessTokenResponse;
+import com.dk0124.project.user.adapter.out.github.GithubAccessTokenResponse;
 import com.dk0124.project.user.adapter.out.github.GitHubClientUserInfo;
 import com.dk0124.project.user.adapter.out.github.GithubClientAccessToken;
-import com.dk0124.project.user.domain.GithubUserInfo;
+
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.google.common.net.HttpHeaders;
 import org.junit.jupiter.api.Disabled;
@@ -51,7 +51,7 @@ public class GithubFeignClientTest {
                         .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                         .withBody("{\"login\":\"testuser\",\"id\":123,\"name\":\"Test User\"}")));
         // When
-        GithubUserInfo userInfo = gitHubClientUserInfo.call("your-access-token");
+        var userInfo = gitHubClientUserInfo.call("your-access-token");
 
         // Then
     }
