@@ -1,8 +1,10 @@
 package com.dk0124.project.common.user;
 
 
-import com.dk0124.project.common.user.adapter.out.github.GitHubClientUserInfo;
-import com.dk0124.project.common.user.adapter.out.github.GithubClientAccessToken;
+import com.dk0124.project.user.GithubAccessTokenResponse;
+import com.dk0124.project.user.adapter.out.github.GitHubClientUserInfo;
+import com.dk0124.project.user.adapter.out.github.GithubClientAccessToken;
+import com.dk0124.project.user.domain.GithubUserInfo;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.google.common.net.HttpHeaders;
 import org.junit.jupiter.api.Disabled;

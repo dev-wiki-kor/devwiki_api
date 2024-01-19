@@ -1,9 +1,9 @@
 package com.dk0124.project.common.user;
 
 
-import com.dk0124.project.common.user.adapter.in.LoginController;
-import com.dk0124.project.common.user.application.GithubLoginRequest;
-import com.dk0124.project.common.user.application.GithubLoginUsecase;
+import com.dk0124.project.user.adapter.in.LoginController;
+import com.dk0124.project.user.application.GithubLoginRequest;
+import com.dk0124.project.user.application.GithubLoginUsecase;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(LoginController.class)
-public class LoginControllerTest {
+class LoginControllerTest {
 
     @Autowired
     private MockMvc mockMvc;

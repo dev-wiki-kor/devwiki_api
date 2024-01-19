@@ -1,24 +1,25 @@
 package com.dk0124.project.common.user;
 
 import com.dk0124.project.auth.domain.UserRole;
-import com.dk0124.project.common.user.adapter.out.github.GitHubClientUserInfo;
-import com.dk0124.project.common.user.adapter.out.github.GithubClientAccessToken;
-import com.dk0124.project.common.user.adapter.out.user.UserGithubInfo;
-import com.dk0124.project.common.user.application.GithubLoginRequest;
-import com.dk0124.project.common.user.application.port.out.LoginHistoryPort;
-import com.dk0124.project.common.user.application.port.out.UserExistCheckPort;
+import com.dk0124.project.user.GithubAccessTokenResponse;
+import com.dk0124.project.user.adapter.out.github.GitHubClientUserInfo;
+import com.dk0124.project.user.adapter.out.github.GithubClientAccessToken;
+import com.dk0124.project.user.adapter.out.user.UserGithubInfo;
+import com.dk0124.project.user.application.GithubLoginRequest;
+import com.dk0124.project.user.application.port.out.LoginHistoryPort;
+import com.dk0124.project.user.application.port.out.UserExistCheckPort;
 
-import com.dk0124.project.common.user.application.service.GithubLoginService;
-import com.dk0124.project.common.user.exception.GithubAuthFailException;
-import com.dk0124.project.common.user.exception.UserNotExistException;
+import com.dk0124.project.user.application.service.GithubLoginService;
+import com.dk0124.project.user.domain.GithubUserInfo;
+import com.dk0124.project.user.exception.GithubAuthFailException;
+import com.dk0124.project.user.exception.UserNotExistException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDateTime;
-import java.util.List;
+
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -71,9 +72,6 @@ class GithubLoginServiceTest {
                 true
         );
 
-        var loginSession = new LoginSession(
-                null, userGithubInfo.getUserMetaId(), List.of(Role.USER), LocalDateTime.now(), LocalDateTime.now()
-        );
 
         when(githubClientAccessToken.call(
                 eq(githubLoginRequest.cookie()),
@@ -91,10 +89,6 @@ class GithubLoginServiceTest {
 
         doNothing().when(loginHistoryPort).writeLoginHistory(userGithubInfo.getUserMetaId());
 
-        /*
-        // 아직 session 설계 없음 .
-        when(createLoginSession.create(any())).thenReturn(loginSession);
-        */
 
         assertDoesNotThrow(() -> githubLoginService.login(githubLoginRequest));
     }

@@ -3,17 +3,14 @@ package com.dk0124.project.common.user;
 
 import com.dk0124.project.auth.domain.UserRole;
 import com.dk0124.project.common.QueryDslTestConfig;
-import com.dk0124.project.common.user.adapter.out.user.UserExistCheckAdapter;
-import com.dk0124.project.common.user.adapter.out.user.UserGithubInfo;
-import com.dk0124.project.common.user.adapter.out.user.entity.UserGithubInfoEntity;
-import com.dk0124.project.common.user.adapter.out.user.entity.UserMetaEntity;
-import com.dk0124.project.common.user.adapter.out.user.repository.UserGithubInfoEntityRepository;
-import com.dk0124.project.common.user.adapter.out.user.repository.UserMetaEntityRepository;
-import com.dk0124.project.common.user.exception.UserNotExistException;
+import com.dk0124.project.user.adapter.out.user.UserExistCheckAdapter;
+import com.dk0124.project.user.adapter.out.user.entity.UserGithubInfoEntity;
+import com.dk0124.project.user.adapter.out.user.entity.UserMetaEntity;
+import com.dk0124.project.user.adapter.out.user.repository.UserGithubInfoEntityRepository;
+import com.dk0124.project.user.adapter.out.user.repository.UserMetaEntityRepository;
+import com.dk0124.project.user.exception.UserNotExistException;
 import com.navercorp.fixturemonkey.FixtureMonkey;
-import com.navercorp.fixturemonkey.api.introspector.ConstructorPropertiesArbitraryIntrospector;
 import com.navercorp.fixturemonkey.api.introspector.FieldReflectionArbitraryIntrospector;
-import com.navercorp.fixturemonkey.jakarta.validation.plugin.JakartaValidationPlugin;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -22,7 +19,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.util.Optional;
 import java.util.Set;
 
 import static com.navercorp.fixturemonkey.api.experimental.JavaGetterMethodPropertySelector.javaGetter;
