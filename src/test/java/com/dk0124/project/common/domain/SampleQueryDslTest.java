@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("local")
 @SpringBootTest
 @Import(QuerydslConfiguration.class)
-public class SampleQueryDslTest {
+class SampleQueryDslTest {
 
     @Autowired
     SampleEntityRepository repository;
@@ -23,13 +23,13 @@ public class SampleQueryDslTest {
     SampleQueryDslRespository jpaQueryFactory;
 
     @Test
-    public void 의존성_주입_확인() {
+    void 의존성_주입_확인() {
         assertThat(repository).isNotNull();
         assertThat(jpaQueryFactory).isNotNull();
     }
 
     @Test
-    public void h2_연동_확인(){
+    void h2_연동_확인(){
         //G
         //G
         var sample =  new SampleEntity();

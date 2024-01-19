@@ -1,10 +1,9 @@
 package com.dk0124.project.common.session;
 
-import com.dk0124.project.auth.domain.UserRole;
+import com.dk0124.project.user.domain.UserRole;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -23,15 +22,16 @@ class LoginSessionServiceImplTest {
 
 
     @Test
-    public void 레디스_세션_객체_저장후_조회() {
+    void 레디스_세션_객체_저장후_조회() {
         var session = loginSessionService.createLoginSession(0L, Set.of(UserRole.USER, UserRole.ADMIN));
         loginSessionService.saveLoginSession(session);
 
         var retrieved = loginSessionService.getLoginSession(session.getUuid());
+        assertNotNull(retrieved);
     }
 
     @Test
-    public void 레디스_세션_갱신_후_조회() {
+    void 레디스_세션_갱신_후_조회() {
         // given
         var session = userDoLogin();
         var beforeRenew = userRequestWithSessionKey(session);

@@ -18,12 +18,12 @@ class SampleEntityTest {
     SampleEntityRepository sampleEntityRepository;
 
     @Test
-    public void jpa_의존성_확인() {
+    void jpa_의존성_확인() {
         assertNotNull(sampleEntityRepository);
     }
 
     @Test
-    public void h2_연동_확인(){
+    void h2_연동_확인(){
         //G
         var sample =  new SampleEntity();
 
