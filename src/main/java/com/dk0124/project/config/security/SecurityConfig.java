@@ -2,9 +2,9 @@ package com.dk0124.project.config.security;
 
 
 /*
-* 1. csrf
-*
-* */
+ * 1. csrf
+ *
+ * */
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +22,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.preauth.RequestHeaderAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
@@ -48,6 +49,7 @@ public class SecurityConfig {
                 .httpBasic(HttpBasicConfigurer::disable)
                 .formLogin(FormLoginConfigurer::disable)
                 .rememberMe(RememberMeConfigurer::disable)
+
                 // 테스트 중 csrf disabled 가 없다면 , post 요청에서 403 forbidden 을 반환한다..
                 .csrf(CsrfConfigurer::disable)
                 // can be corsed
@@ -56,6 +58,7 @@ public class SecurityConfig {
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
+
                 // auth applied by session in JSESSIONID attr user-info
                 .addFilterBefore(new SessionBasedAuthFilter(), RequestHeaderAuthenticationFilter.class)
                 // only login, logout, signIn can be accessed without login session
@@ -64,8 +67,17 @@ public class SecurityConfig {
                         .requestMatchers("/v1/user/signIn").permitAll()
                         .requestMatchers(("/session/**")).permitAll()
                         .anyRequest().authenticated()
-                );
+                )
+
+
+                // cutom exception handling
+                .exceptionHandling((exception) -> exception
+                        .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+                        .accessDeniedHandler(new CustomAccessDeniedHandler())
+                )
+        ;
         return http.build();
     }
+
 
 }
