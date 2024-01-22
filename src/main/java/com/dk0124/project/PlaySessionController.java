@@ -1,10 +1,8 @@
 package com.dk0124.project;
 
 
-import com.dk0124.project.config.session.loginSession.LoginSessionService;
-import com.dk0124.project.config.session.loginSession.UUIDHolder;
+import com.dk0124.project.config.security.loginSession.LoginSessionService;
 import com.dk0124.project.user.domain.UserRole;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

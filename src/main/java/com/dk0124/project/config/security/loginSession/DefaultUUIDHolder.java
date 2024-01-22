@@ -1,4 +1,4 @@
-package com.dk0124.project.config.session.loginSession;
+package com.dk0124.project.config.security.loginSession;
 
 import org.springframework.stereotype.Component;
 
