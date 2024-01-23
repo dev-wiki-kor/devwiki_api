@@ -1,4 +1,4 @@
-package com.dk0124.project.config.security;
+package com.dk0124.project.config.security.authProvider;
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

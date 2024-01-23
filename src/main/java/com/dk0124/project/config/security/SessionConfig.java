@@ -4,13 +4,10 @@ package com.dk0124.project.config.security;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.session.data.redis.RedisSessionRepository;
+
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.web.http.CookieSerializer;
 import org.springframework.session.web.http.DefaultCookieSerializer;
-
-import java.time.Duration;
 
 
 @Configuration
@@ -28,7 +25,8 @@ public class SessionConfig {
         serializer.setCookieName(SESSION_LOCATION);
         serializer.setCookiePath("/");
         serializer.setDomainNamePattern("^.+?\\.(\\w+\\.[a-z]+)$");
-        // for test
+
+        // for test - look same in brower and redis storage
         serializer.setUseBase64Encoding(false);
         return serializer;
     }

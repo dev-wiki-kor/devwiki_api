@@ -1,7 +1,7 @@
-package com.dk0124.project.config.security;
+package com.dk0124.project.config.security.authProvider;
 
 import com.dk0124.project.config.security.loginSession.LoginSession;
-import com.dk0124.project.config.security.loginSession.NoActiveLoginSession;
+import com.dk0124.project.config.security.NoActiveLoginSession;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +18,13 @@ import java.util.stream.Collectors;
 
 public class SessionBasedAuthFilter extends OncePerRequestFilter {
 
-    private final String USER_INFO = "USER_INFO";
+    private static final String USER_INFO = "USER_INFO";
+
+    /*
+    * use JSESSIONID ( based64 encoded ) as redis key for user session
+    *
+    * user role & unique id stored in attribute ("USER_INFO")
+    * */
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

@@ -1,4 +1,4 @@
-package com.dk0124.project.config.security.loginSession;
+package com.dk0124.project.config.security;
 
 
 public class NoActiveLoginSession extends RuntimeException {

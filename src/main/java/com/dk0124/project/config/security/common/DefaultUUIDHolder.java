@@ -1,5 +1,6 @@
-package com.dk0124.project.config.security.loginSession;
+package com.dk0124.project.config.security.common;
 
+import com.dk0124.project.config.security.common.UUIDHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;

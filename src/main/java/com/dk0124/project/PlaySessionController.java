@@ -1,7 +1,8 @@
 package com.dk0124.project;
 
 
-import com.dk0124.project.config.security.loginSession.LoginSessionService;
+import com.dk0124.project.config.security.loginSession.LoginSessionRegister;
+
 import com.dk0124.project.user.domain.UserRole;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,25 +12,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Set;
 
+
+/*
+ * 보안 구현 중, 테스트 api
+ * */
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/session")
 @Slf4j
 public class PlaySessionController {
 
-    private final LoginSessionService loginSessionService;
+    private final LoginSessionRegister loginSessionRegister;
 
     @GetMapping("/create")
     public String create() {
-        loginSessionService.registerLoginSession(1L, Set.of(UserRole.USER));
+        loginSessionRegister.registerLoginSession(1L, Set.of(UserRole.USER));
         return "created";
     }
-
-
-    @GetMapping("/read")
-    public String read() {
-        loginSessionService.readSession();
-        return "ok";
-    }
-
 }
