@@ -35,7 +35,6 @@ public class GithubLoginService implements GithubLoginUsecase {
         loginHistoryPort.writeLoginHistory(loginUser.getUserMetaId());
 
 /*
-        // set session
         createLoginSession.create(loginUser);
  */
     }

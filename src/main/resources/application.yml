@@ -12,6 +12,8 @@ app:
     session-loc : session_loc
     session-active : 86400  #second , 1day
 
+
+
 ---
 spring.config.activate.on-profile: local
 
@@ -26,6 +28,7 @@ spring:
   h2:
     console:
       enabled: true
+
   data:
     redis:
       host: localhost
@@ -33,8 +36,20 @@ spring:
 
   session:
     store-type: redis
+    redis:
+      flush-mode: on_save
 
 
+
+logging:
+  level:
+    web: debug
+
+app:
+  var:
+    login-session-id : JSESSIONID
+    login-session-user-attribute : USER_INFO
+    session-refresh-duration : 86400
 
 storage:
   datasource:
