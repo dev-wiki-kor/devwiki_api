@@ -42,8 +42,10 @@ public class GithubLoginService implements GithubLoginUsecase {
     private GitHubClientUserInfoResponse callGithubUserInfo(GithubLoginRequest loginRequest) {
         try {
             // get access token
+            // TODO : 어댑터로 빼기 , id 값 지우기.
             var githubAccessTokenResponse
-                    = githubClientAccessToken.call(loginRequest.cookie(), "CLIENT_ID", "CLIENT_SECRET", loginRequest.code());
+                    = githubClientAccessToken.call(loginRequest.cookie(), "c762b77b5518e2e55544",
+                    "8dca729660542f8a7038a0f234a231d4e7fa94aa", loginRequest.code());
             // get user info
             return gitHubClientUserInfo.call(githubAccessTokenResponse.getBearerToken());
         } catch (Exception e) {
