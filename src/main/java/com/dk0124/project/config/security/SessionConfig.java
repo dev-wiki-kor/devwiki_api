@@ -11,7 +11,8 @@ import org.springframework.session.web.http.DefaultCookieSerializer;
 
 
 @Configuration
-@EnableRedisHttpSession(redisNamespace = "spring:session:JSESSIONID", maxInactiveIntervalInSeconds = 86400)
+@EnableRedisHttpSession(redisNamespace = "spring:session:JSESSIONID", maxInactiveIntervalInSeconds = 86400
+)
 public class SessionConfig {
 
     @Value("${app.var.login-session-id}") // this is JSESSIONID
