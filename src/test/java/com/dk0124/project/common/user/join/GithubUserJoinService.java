@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Slf4j
 public class GithubUserJoinService implements GithubUserJoinUsecase{
+
     private final GithubApiPort githubApiPort;
 
     private final GithubUserJoinPort githubUserJoinPort;
@@ -30,7 +31,14 @@ public class GithubUserJoinService implements GithubUserJoinUsecase{
         if(!githubUserJoinPort.isNickNameAvailable(githubUserJoinRequest.nickname()))
             throw new JoinFailException("이미 사용하고 있는 닉네임");
 
+
         // join user
-        githubUserJoinPort.join(userInfoResponse.uniqueId(), githubUserJoinRequest.nickname());
+        githubUserJoinPort.join(new JoinCommand (
+                userInfoResponse.uniqueId(),
+                userInfoResponse.email(),
+                userInfoResponse.pageUrl(),
+                userInfoResponse.profileUrl(),
+                githubUserJoinRequest.nickname()
+        ));
     }
 }

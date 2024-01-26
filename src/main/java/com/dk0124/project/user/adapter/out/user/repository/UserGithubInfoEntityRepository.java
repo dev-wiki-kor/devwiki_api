@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface UserGithubInfoEntityRepository extends JpaRepository<UserGithubInfoEntity, Long> {
     Optional<UserGithubInfoEntity> findByGithubUniqueId(String githubUniqueId);
+
+    boolean existsByGithubUniqueId(String githubUniqueId);
 }

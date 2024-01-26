@@ -3,6 +3,8 @@ package com.dk0124.project.user.adapter.out.user.entity;
 
 import com.dk0124.project.common.domain.BaseEntity;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "USER_GITHUB_INFO")
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserGithubInfoEntity extends BaseEntity {
 
     @Id
@@ -31,4 +34,8 @@ public class UserGithubInfoEntity extends BaseEntity {
 
     @Column(name = "USE_GITHUB_URL")
     private boolean useGithubUrl = true;
+
+    public static UserGithubInfoEntity of(Long userMetaId, String githubUniqueId, String email, String githubUrl, boolean useGithubUrl) {
+        return new UserGithubInfoEntity(null, userMetaId, githubUniqueId, email, githubUrl, useGithubUrl);
+    }
 }

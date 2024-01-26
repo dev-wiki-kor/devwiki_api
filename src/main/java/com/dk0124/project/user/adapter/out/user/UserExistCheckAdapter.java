@@ -40,6 +40,4 @@ public class UserExistCheckAdapter implements UserExistCheckPort {
                 userInfo.isActive()
         );
     }
-
-
 }

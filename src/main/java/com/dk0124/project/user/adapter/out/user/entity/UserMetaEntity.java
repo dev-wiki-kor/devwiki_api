@@ -4,6 +4,8 @@ import com.dk0124.project.common.domain.BaseEntity;
 import com.dk0124.project.user.domain.UserRole;
 import com.dk0124.project.user.domain.UserStatus;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +15,7 @@ import java.util.Set;
 @Entity
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserMetaEntity extends BaseEntity {
 
     @Id
@@ -39,4 +42,9 @@ public class UserMetaEntity extends BaseEntity {
     private String username; -> 생략... 현재는 User name 을 두지 않을 예정 ( github 계정으로만 로그인 )
     * */
 
+
+    public static UserMetaEntity of(Set<UserRole> userRoles, Set<UserStatus> userStatus, boolean active) {
+        return new UserMetaEntity(null,
+                userRoles, userStatus, true);
+    }
 }
