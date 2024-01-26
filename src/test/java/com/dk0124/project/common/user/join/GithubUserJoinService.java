@@ -1,8 +1,6 @@
 package com.dk0124.project.common.user.join;
 
-import com.dk0124.project.user.adapter.out.github.GitHubClientUserInfo;
-import com.dk0124.project.user.adapter.out.github.GitHubClientUserInfoResponse;
-import com.dk0124.project.user.adapter.out.github.GithubClientAccessToken;
+
 import com.dk0124.project.user.application.port.out.GithubApiPort;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +22,7 @@ public class GithubUserJoinService implements GithubUserJoinUsecase{
         var userInfoResponse
                 = githubApiPort.callGithubUserInfoByCode(githubUserJoinRequest.code());
 
-        // check if there is duplicate user;
+        // check if there is duplicate user
         if(!githubUserJoinPort.isUniqueIdAvailable(userInfoResponse.uniqueId()))
             throw new JoinFailException("이미 가입된 깃허브 계정");
 

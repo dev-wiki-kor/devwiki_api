@@ -64,8 +64,7 @@ public class SecurityConfig {
                 // csrf token is not generated automatically in spring security v6, this initial token can get from CsrfController .
                 .csrf((csrf) -> csrf
                         .ignoringRequestMatchers("/csrf/**")
-                        .ignoringRequestMatchers("/v1/user/login/**")
-                        .ignoringRequestMatchers("/v1/user/signIn/**")
+                        .ignoringRequestMatchers("/v1/user/**")
                         .csrfTokenRequestHandler(requestHandler)
                 )
                 // default cors setting
@@ -79,8 +78,7 @@ public class SecurityConfig {
 
                 // only login, logout, signIn can be accessed without login session
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/v1/user/login/**").permitAll()
-                        .requestMatchers("/v1/user/signIn/**").permitAll()
+                        .requestMatchers("/v1/user/**").permitAll()
                         // for manual csrf token register
                         .requestMatchers("/csrf/**").permitAll()
                         .requestMatchers(("/session/**")).permitAll()
