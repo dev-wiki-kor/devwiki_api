@@ -2,10 +2,7 @@ package com.dk0124.project.user.adapter.out.user.entity;
 
 import com.dk0124.project.user.adapter.out.user.UserActionType;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor
 public class UserLoginHistoryEntity {
 
     @Id

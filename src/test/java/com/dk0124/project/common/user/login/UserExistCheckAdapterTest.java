@@ -1,4 +1,4 @@
-package com.dk0124.project.common.user;
+package com.dk0124.project.common.user.login;
 
 
 import com.dk0124.project.common.QueryDslTestConfig;

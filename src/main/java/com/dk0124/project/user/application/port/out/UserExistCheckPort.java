@@ -4,4 +4,5 @@ import com.dk0124.project.user.domain.UserGithubInfo;
 
 public interface UserExistCheckPort {
     UserGithubInfo findByGithubUniqueId(String githubUniqueId);
+
 }
