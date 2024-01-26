@@ -21,6 +21,8 @@ public class UserGithubInfo {
 
     private Set<UserRole> userRoles = new HashSet<>();
 
+    private Set<UserStatus> userStatus = new HashSet<>();
+
     private boolean active;
 
 }

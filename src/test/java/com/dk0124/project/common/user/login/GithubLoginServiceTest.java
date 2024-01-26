@@ -4,6 +4,7 @@ import com.dk0124.project.user.adapter.out.github.GithubAccessTokenResponse;
 import com.dk0124.project.user.adapter.out.github.GitHubClientUserInfo;
 import com.dk0124.project.user.adapter.out.github.GitHubClientUserInfoResponse;
 import com.dk0124.project.user.adapter.out.github.GithubClientAccessToken;
+import com.dk0124.project.user.application.port.out.GithubApiPort;
 import com.dk0124.project.user.domain.UserGithubInfo;
 import com.dk0124.project.user.application.GithubLoginRequest;
 import com.dk0124.project.user.application.port.out.LoginHistoryPort;
@@ -11,6 +12,7 @@ import com.dk0124.project.user.application.port.out.UserExistCheckPort;
 
 import com.dk0124.project.user.application.service.GithubLoginService;
 import com.dk0124.project.user.domain.UserRole;
+import com.dk0124.project.user.domain.UserStatus;
 import com.dk0124.project.user.exception.GithubAuthFailException;
 import com.dk0124.project.user.exception.UserNotExistException;
 import org.junit.jupiter.api.Test;
@@ -30,9 +32,8 @@ import static org.mockito.Mockito.*;
 class GithubLoginServiceTest {
 
     @Mock
-    GithubClientAccessToken githubClientAccessToken;
-    @Mock
-    GitHubClientUserInfo githubClientUserInfo;
+    GithubApiPort githubApiPort;
+
     @Mock
     UserExistCheckPort userExistCheckPort;
     @Mock
@@ -69,18 +70,12 @@ class GithubLoginServiceTest {
                 1L,
                 githubUserInfo.uniqueId(),
                 Set.of(UserRole.USER),
+                Set.of(UserStatus.NORMAL),
                 true
         );
 
 
-        when(githubClientAccessToken.call(
-                eq(githubLoginRequest.cookie()),
-                any(String.class),
-                any(String.class),
-                eq(githubLoginRequest.code())
-        )).thenReturn(githubAccessTokenResponse);
-
-        when(githubClientUserInfo.call(githubAccessTokenResponse.getBearerToken()))
+        when(githubApiPort.callGithubUserInfoByCode(any(String.class)))
                 .thenReturn(githubUserInfo);
 
 
@@ -102,12 +97,9 @@ class GithubLoginServiceTest {
                 GIHUB_AUTH_RES_COOKIE_FOR_TEST
         );
 
-        when(githubClientAccessToken.call(
-                eq(githubLoginRequest.cookie()),
-                any(String.class),
-                any(String.class),
-                eq(githubLoginRequest.code())
-        )).thenThrow(new GithubAuthFailException());
+        when(githubApiPort.callGithubUserInfoByCode(any(String.class)))
+                .thenThrow(new GithubAuthFailException("테스트 익샙션"));
+
 
         assertThrows(GithubAuthFailException.class, () -> githubLoginService.login(githubLoginRequest));
     }
@@ -125,15 +117,8 @@ class GithubLoginServiceTest {
                 "accessToken", "tokenType", "scope"
         );
 
-        when(githubClientAccessToken.call(
-                eq(githubLoginRequest.cookie()),
-                any(String.class),
-                any(String.class),
-                eq(githubLoginRequest.code())
-        )).thenReturn(githubAccessTokenResponse);
-
-        when(githubClientUserInfo.call(githubAccessTokenResponse.getBearerToken()))
-                .thenThrow(new GithubAuthFailException());
+        when(githubApiPort.callGithubUserInfoByCode(any(String.class)))
+                .thenThrow(new GithubAuthFailException("테스트 익샙션"));
 
         assertThrows(GithubAuthFailException.class, () -> githubLoginService.login(githubLoginRequest));
 
@@ -154,14 +139,7 @@ class GithubLoginServiceTest {
         var githubUserInfo = new GitHubClientUserInfoResponse("email", "uniqueId", "nickname", "profile", "pageUrl");
 
 
-        when(githubClientAccessToken.call(
-                eq(githubLoginRequest.cookie()),
-                any(String.class),
-                any(String.class),
-                eq(githubLoginRequest.code())
-        )).thenReturn(githubAccessTokenResponse);
-
-        when(githubClientUserInfo.call(githubAccessTokenResponse.getBearerToken()))
+        when(githubApiPort.callGithubUserInfoByCode(any(String.class)))
                 .thenReturn(githubUserInfo);
 
 

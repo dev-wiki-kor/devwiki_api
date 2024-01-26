@@ -5,6 +5,7 @@ import com.dk0124.project.user.adapter.out.user.entity.UserLoginHistoryEntity;
 import com.dk0124.project.user.adapter.out.user.repository.UserLoginHistoryEntityRepository;
 
 import com.dk0124.project.user.application.port.out.LoginHistoryPort;
+import com.dk0124.project.user.domain.UserActionType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

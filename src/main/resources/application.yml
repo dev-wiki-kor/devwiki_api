@@ -12,6 +12,9 @@ app:
     session-loc : session_loc
     session-active : 86400  #second , 1day
 
+    github-client-id: ${GITHUB_CLIENT_ID}
+    github-client-secret: ${GITHUB_CLIENT_SECRET}
+
 
 
 ---

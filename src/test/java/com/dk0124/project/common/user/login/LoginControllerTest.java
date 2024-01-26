@@ -38,7 +38,7 @@ class LoginControllerTest {
         // githubLoginUsecase.login() 메소드가 아무것도 하지 않도록 설정
         doNothing().when(githubLoginUsecase).login(any(GithubLoginRequest.class));
 
-        // POST 요청 수행 ("/v1/user/github/user")
+        // POST 요청 수행 ("/v1/user/login/github")
         mockMvc.perform(post("/v1/user/login/github")
                 .contentType("application/json")  // JSON 형식으로 전송
                 .content("{\"code\": \"code\"}")  // JSON 데이터 입력

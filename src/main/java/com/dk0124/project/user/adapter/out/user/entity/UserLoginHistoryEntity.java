@@ -1,6 +1,6 @@
 package com.dk0124.project.user.adapter.out.user.entity;
 
-import com.dk0124.project.user.adapter.out.user.UserActionType;
+import com.dk0124.project.user.domain.UserActionType;
 import jakarta.persistence.*;
 import lombok.*;
 

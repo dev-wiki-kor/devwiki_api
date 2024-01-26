@@ -20,15 +20,16 @@ public class GithubUserJoinPreCheckService implements GithubUserJoinPreCheckUsec
 
         // TODO : 어댑터로 빼기 , id 값 지우기.
         var githubAccessTokenResponse
-                = githubClientAccessToken.call(null, "c762b77b5518e2e55544",
+                = githubClientAccessToken.call( "c762b77b5518e2e55544",
                 "8dca729660542f8a7038a0f234a231d4e7fa94aa", code);
 
         var githubUserInfo = gitHubClientUserInfo.call(githubAccessTokenResponse.getBearerToken());
 
+        var userInfo = userExistCheckPort.findByGithubUniqueId(githubUserInfo.uniqueId());
 
+        if(userInfo != null )
+            return false;
 
-        return false;
+        return true;
     }
-
-
 }

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface GithubClientAccessToken {
     @PostMapping(value = "login/oauth/access_token", produces = MediaType.APPLICATION_JSON_VALUE)
     GithubAccessTokenResponse call (
-            @RequestHeader("Cookie") String cookie,
             @RequestParam("client_id") String clientId,
             @RequestParam("client_secret") String clientSecret,
             @RequestParam("code") String code

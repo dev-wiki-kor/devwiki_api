@@ -8,6 +8,7 @@ import com.dk0124.project.user.adapter.out.user.entity.UserMetaEntity;
 import com.dk0124.project.user.adapter.out.user.repository.UserGithubInfoEntityRepository;
 import com.dk0124.project.user.adapter.out.user.repository.UserMetaEntityRepository;
 import com.dk0124.project.user.domain.UserRole;
+import com.dk0124.project.user.domain.UserStatus;
 import com.dk0124.project.user.exception.UserNotExistException;
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.api.introspector.FieldReflectionArbitraryIntrospector;
@@ -51,6 +52,7 @@ public class UserExistCheckAdapterTest {
 
         UserMetaEntity userMetaEntity = monkey.giveMeBuilder(UserMetaEntity.class)
                 .set("userRoles", Set.of(UserRole.USER))
+                .set("userStatus", Set.of(UserStatus.NORMAL))
                 .set("active", true)
                 .sample();
 
@@ -84,6 +86,7 @@ public class UserExistCheckAdapterTest {
 
         UserMetaEntity userMetaEntity = monkey.giveMeBuilder(UserMetaEntity.class)
                 .set("userRoles", Set.of(UserRole.USER))
+                .set("userStatus", Set.of(UserStatus.NORMAL))
                 .set("active", false)
                 .sample();
 

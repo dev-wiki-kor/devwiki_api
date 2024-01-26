@@ -83,7 +83,7 @@ public class GithubFeignClientTest {
                         .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                         .withBody("{\"access_token\":\"your-access-token\",\"token_type\":\"bearer\"}")));
         // When
-        GithubAccessTokenResponse accessTokenResponse = githubClientAccessToken.call("your-cookie", "your-client-id", "your-client-secret", "your-code");
+        GithubAccessTokenResponse accessTokenResponse = githubClientAccessToken.call("your-client-id", "your-client-secret", "your-code");
 
     }
 
