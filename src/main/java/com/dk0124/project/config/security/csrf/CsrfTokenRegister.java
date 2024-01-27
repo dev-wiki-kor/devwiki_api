@@ -6,6 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Component;
 
+/*
+* 로그인 성공 시, CsrfTokenRegister 를 직접 호출해서 body 에 토큰을 담아서 전달.
+* */
 @Component
 @RequiredArgsConstructor
 public class CsrfTokenRegister {

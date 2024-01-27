@@ -12,6 +12,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+
+/**
+ * JoinPreCheck api 에서 응답받은 bearer token 을 파라미터로 씀 .
+ *
+ * 1) github 유저 정보 쿼리 .
+ *
+ * 2) 닉네임 등록 가능여부 확인 .
+ *
+ * 3) 회원 가입
+ * */
 @Service
 @RequiredArgsConstructor
 @Slf4j

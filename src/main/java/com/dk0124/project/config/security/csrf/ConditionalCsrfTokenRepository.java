@@ -7,7 +7,10 @@ import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 /*
-* csrf 토큰을 로그인 성공 시 https 바디로 전송.
+* 커스텀 csrf 토큰 레포지토리
+* 유저 로그인 세션이 있는 경우에만, csrf 토큰을 발급.
+*
+* 로그인 성공 시, CsrfTokenRegister 를 직접 호출해서 body 에 토큰을 담아서 전달.
 * */
 public class ConditionalCsrfTokenRepository implements CsrfTokenRepository{
 
@@ -19,6 +22,7 @@ public class ConditionalCsrfTokenRepository implements CsrfTokenRepository{
         return isAuthenticated(request) ? delegatedRepository .generateToken(request) : null;
     }
 
+    // csrf 값을 바꾸지 않음 .
     @Override
     public void saveToken(CsrfToken token, HttpServletRequest request, HttpServletResponse response) {
         if (token != null) {
@@ -28,7 +32,7 @@ public class ConditionalCsrfTokenRepository implements CsrfTokenRepository{
 
     @Override
     public CsrfToken loadToken(HttpServletRequest request) {
-        return delegatedRepository .loadToken(request);
+        return delegatedRepository.loadToken(request);
     }
 
     // 로그인 인증된 유저에 대해서만 csrf 토큰 발급

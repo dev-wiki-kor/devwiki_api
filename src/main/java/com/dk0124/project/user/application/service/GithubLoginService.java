@@ -1,22 +1,26 @@
 package com.dk0124.project.user.application.service;
 
 
-import com.dk0124.project.config.security.csrf.CsrfTokenRegister;
-import com.dk0124.project.config.security.session.LoginSessionRegister;
+
 import com.dk0124.project.user.adapter.in.dto.GithubLoginRequest;
 import com.dk0124.project.user.application.GithubLoginUsecase;
 import com.dk0124.project.user.application.port.out.GithubApiPort;
 import com.dk0124.project.user.application.port.out.LoginHistoryPort;
 import com.dk0124.project.user.application.port.out.UserExistCheckPort;
 
-import com.dk0124.project.user.domain.UserRole;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+
+/**
+ * 로그인 서비스 클래스
+ *
+ * 1) Github API를 호출하여 unique id와 사용자 정보를 획득합니다.
+ * 2) 데이터베이스에서 unique id 를 값으로 가지는 로그인 가능한 유저 정보가 있는지 확인 .
+ * 3) 사용자 로그인 히스토리를 생성합니다.
+ * 4) 로그인 성공 시 세션을 생성하고 CSRF 토큰을 생성합니다.
+ */
 
 @Slf4j
 @Service

@@ -10,6 +10,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+
+/**
+ * 로그인 성공 시 수행되는 핸들러 클래스
+ *
+ * 주요 역할:
+ * - 로그인 세션을 등록하는 기능
+ * - CSRF 토큰을 등록하는 기능
+ */
 @Service
 @RequiredArgsConstructor
 public class LoginSuccessHandler {
@@ -21,6 +29,12 @@ public class LoginSuccessHandler {
     private final HttpServletResponse httpServletResponse;
 
 
+    /**
+     * 로그인 성공 시 세션을 생성하고 CSRF 토큰을 등록함.
+     *
+     * @param userId    로그인한 사용자의 ID (메타 유저 아이디 )
+     * @param userRoles Set<UserRole>
+     */
     public void createSession(Long userId, Set<UserRole> userRoles ){
         loginSessionRegister.registerLoginSession(userId,userRoles);
         // CSRF 토큰 등록

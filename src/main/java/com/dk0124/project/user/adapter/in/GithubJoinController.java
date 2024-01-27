@@ -26,19 +26,30 @@ public class GithubJoinController {
 
     private final GithubUserJoinPreCheckUsecase githubUserJoinPreCheckUsecase;
 
+    /**
+     * oauth 인증 code 에 해당하는 유저가 회원가입이 가능한지 확인합니다.
+     * canRegister.success = true 라면 가입 가능하며, 회원가입이 가능하면 join api 호출을 위한 토큰값을 넘겨줍니다.
+     *
+     * @param githubCodeCheckRequest GitHub 코드 확인 요청 객체
+     * @return 가입 가능 여부 및 토큰 값
+     */
     @PostMapping("/checkCode")
     public ResponseEntity<GithubUserCanJoinResult> checkGithubCode(@Valid @RequestBody GithubCodeCheckRequest githubCodeCheckRequest) {
-        log.info("Checking GitHub code: {}", githubCodeCheckRequest.code());
         var canRegister = githubUserJoinPreCheckUsecase.canRegister(githubCodeCheckRequest.code());
-        log.info("Can register with code {}: {}", githubCodeCheckRequest.code(), canRegister);
         return ResponseEntity.ok(canRegister);
     }
 
+
+    /**
+     * 회원 가입을 수행합니다.
+     * 위의 토큰 값과 회원가입에 쓰일 유저 정보를 입력 받으며, 실패 시 JoinFailException이 발생합니다.
+     *
+     * @param githubUserJoinRequest GitHub 사용자 가입 요청 객체
+     * @return 가입 결과
+     */
     @PostMapping("/github")
     public ResponseEntity<JoinResponse> joinWithGithub(@Valid @RequestBody GithubUserJoinRequest githubUserJoinRequest) {
-        log.info("Joining with GitHub: {}", githubUserJoinRequest);
         githubUserJoinUsecase.join(githubUserJoinRequest);
-        log.info("User joined with GitHub code: {}", githubUserJoinRequest.code());
         return ResponseEntity.ok(new JoinResponse(true));
     }
 }
