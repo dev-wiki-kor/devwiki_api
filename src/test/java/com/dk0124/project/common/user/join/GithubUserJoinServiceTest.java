@@ -1,8 +1,12 @@
-package com.dk0124.project.common.user.join.test;
+package com.dk0124.project.common.user.join;
 
-import com.dk0124.project.common.user.join.*;
+import com.dk0124.project.user.adapter.in.dto.GithubUserJoinRequest;
 import com.dk0124.project.user.adapter.out.github.GitHubClientUserInfoResponse;
 import com.dk0124.project.user.application.port.out.GithubApiPort;
+import com.dk0124.project.user.application.port.out.GithubUserJoinPort;
+import com.dk0124.project.user.application.service.GithubUserJoinService;
+import com.dk0124.project.user.domain.JoinCommand;
+import com.dk0124.project.user.exception.JoinFailException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,25 +31,25 @@ public class GithubUserJoinServiceTest {
     @Test
     void join_성공() {
         String code = "code123";
-        GithubUserJoinRequest request = new GithubUserJoinRequest(code, "nickname");
+        GithubUserJoinRequest request = new GithubUserJoinRequest(code, "nickname", "bearerToken");
 
-        when(githubApiPort.callGithubUserInfoByCode(code))
-                .thenReturn(new GitHubClientUserInfoResponse("","uniqueId123", "nickname","url","url"));
+        when(githubApiPort.callUserInfo(request.bearerToken()))
+                .thenReturn(new GitHubClientUserInfoResponse("", "uniqueId123", "nickname", "url", "url"));
         when(githubUserJoinPort.isUniqueIdAvailable("uniqueId123")).thenReturn(true);
         when(githubUserJoinPort.isNickNameAvailable("nickname")).thenReturn(true);
 
         githubUserJoinService.join(request);
 
-        verify(githubUserJoinPort).join(new JoinCommand("uniqueId123","","url","url","nickname"));
+        verify(githubUserJoinPort).join(new JoinCommand("uniqueId123", "", "url", "url", "nickname"));
     }
 
     @Test
     void join_중복된_고유_ID_실패() {
         String code = "code123";
-        GithubUserJoinRequest request = new GithubUserJoinRequest(code, "nickname");
+        GithubUserJoinRequest request = new GithubUserJoinRequest(code, "nickname", "bearerToken");
 
-        when(githubApiPort.callGithubUserInfoByCode(code))
-                .thenReturn(new GitHubClientUserInfoResponse("","uniqueId123", "nickname","url","url"));
+        when(githubApiPort.callUserInfo(request.bearerToken()))
+                .thenReturn(new GitHubClientUserInfoResponse("", "uniqueId123", "nickname", "url", "url"));
         when(githubUserJoinPort.isUniqueIdAvailable("uniqueId123")).thenReturn(false);
 
         assertThrows(JoinFailException.class, () -> githubUserJoinService.join(request));
@@ -54,10 +58,10 @@ public class GithubUserJoinServiceTest {
     @Test
     void join_중복된_닉네임_실패() {
         String code = "code123";
-        GithubUserJoinRequest request = new GithubUserJoinRequest(code, "nickname");
+        GithubUserJoinRequest request = new GithubUserJoinRequest(code, "nickname", "bearerToken");
 
-        when(githubApiPort.callGithubUserInfoByCode(code))
-                .thenReturn(new GitHubClientUserInfoResponse("","uniqueId123", "nickname","url","url"));
+        when(githubApiPort.callUserInfo(request.bearerToken()))
+                .thenReturn(new GitHubClientUserInfoResponse("", "uniqueId123", "nickname", "url", "url"));
         when(githubUserJoinPort.isUniqueIdAvailable("uniqueId123")).thenReturn(true);
         when(githubUserJoinPort.isNickNameAvailable("nickname")).thenReturn(false);
 

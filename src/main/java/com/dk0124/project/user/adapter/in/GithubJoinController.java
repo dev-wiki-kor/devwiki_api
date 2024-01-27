@@ -1,5 +1,11 @@
-package com.dk0124.project.common.user.join;
+package com.dk0124.project.user.adapter.in;
 
+import com.dk0124.project.user.adapter.in.dto.GithubCodeCheckRequest;
+import com.dk0124.project.user.adapter.in.dto.GithubUserJoinRequest;
+import com.dk0124.project.user.adapter.in.dto.JoinResponse;
+import com.dk0124.project.user.domain.GithubUserCanJoinResult;
+import com.dk0124.project.user.application.GithubUserJoinPreCheckUsecase;
+import com.dk0124.project.user.application.GithubUserJoinUsecase;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,11 +27,11 @@ public class GithubJoinController {
     private final GithubUserJoinPreCheckUsecase githubUserJoinPreCheckUsecase;
 
     @PostMapping("/checkCode")
-    public ResponseEntity<JoinPreCheckResponse> checkGithubCode(@Valid @RequestBody GithubCodeCheckRequest githubCodeCheckRequest) {
+    public ResponseEntity<GithubUserCanJoinResult> checkGithubCode(@Valid @RequestBody GithubCodeCheckRequest githubCodeCheckRequest) {
         log.info("Checking GitHub code: {}", githubCodeCheckRequest.code());
         var canRegister = githubUserJoinPreCheckUsecase.canRegister(githubCodeCheckRequest.code());
         log.info("Can register with code {}: {}", githubCodeCheckRequest.code(), canRegister);
-        return ResponseEntity.ok(new JoinPreCheckResponse(canRegister));
+        return ResponseEntity.ok(canRegister);
     }
 
     @PostMapping("/github")

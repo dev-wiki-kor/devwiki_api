@@ -1,12 +1,10 @@
 package com.dk0124.project.common.user.login;
 
 import com.dk0124.project.user.adapter.out.github.GithubAccessTokenResponse;
-import com.dk0124.project.user.adapter.out.github.GitHubClientUserInfo;
 import com.dk0124.project.user.adapter.out.github.GitHubClientUserInfoResponse;
-import com.dk0124.project.user.adapter.out.github.GithubClientAccessToken;
 import com.dk0124.project.user.application.port.out.GithubApiPort;
 import com.dk0124.project.user.domain.UserGithubInfo;
-import com.dk0124.project.user.application.GithubLoginRequest;
+import com.dk0124.project.user.adapter.in.dto.GithubLoginRequest;
 import com.dk0124.project.user.application.port.out.LoginHistoryPort;
 import com.dk0124.project.user.application.port.out.UserExistCheckPort;
 
@@ -40,8 +38,8 @@ class GithubLoginServiceTest {
     LoginHistoryPort loginHistoryPort;
 
     // TODO : 아직 세션 설계 없음.
-    //@Mock
-    //CreateLoginSession createLoginSession;
+    // @Mock
+    // CreateLoginSession createLoginSession;
 
     @InjectMocks
     GithubLoginService githubLoginService;
@@ -54,8 +52,8 @@ class GithubLoginServiceTest {
 
         // Given
         var githubLoginRequest = new GithubLoginRequest(
-                RETURN_CODE_FOR_TEST,
-                GIHUB_AUTH_RES_COOKIE_FOR_TEST
+                RETURN_CODE_FOR_TEST
+
         );
 
         var githubAccessTokenResponse = new GithubAccessTokenResponse(
@@ -93,8 +91,7 @@ class GithubLoginServiceTest {
 
         // Given
         var githubLoginRequest = new GithubLoginRequest(
-                RETURN_CODE_FOR_TEST,
-                GIHUB_AUTH_RES_COOKIE_FOR_TEST
+                RETURN_CODE_FOR_TEST
         );
 
         when(githubApiPort.callGithubUserInfoByCode(any(String.class)))
@@ -109,8 +106,7 @@ class GithubLoginServiceTest {
 
         // Given
         var githubLoginRequest = new GithubLoginRequest(
-                RETURN_CODE_FOR_TEST,
-                GIHUB_AUTH_RES_COOKIE_FOR_TEST
+                RETURN_CODE_FOR_TEST
         );
 
         var githubAccessTokenResponse = new GithubAccessTokenResponse(
@@ -128,8 +124,7 @@ class GithubLoginServiceTest {
     void 로그인_실패_유저정보_불러오기_실패() {
         // Given
         var githubLoginRequest = new GithubLoginRequest(
-                RETURN_CODE_FOR_TEST,
-                GIHUB_AUTH_RES_COOKIE_FOR_TEST
+                RETURN_CODE_FOR_TEST
         );
 
         var githubAccessTokenResponse = new GithubAccessTokenResponse(

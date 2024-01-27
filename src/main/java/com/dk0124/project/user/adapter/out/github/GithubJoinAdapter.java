@@ -1,4 +1,4 @@
-package com.dk0124.project.common.user.join;
+package com.dk0124.project.user.adapter.out.github;
 
 import com.dk0124.project.user.adapter.out.user.entity.UserGithubInfoEntity;
 import com.dk0124.project.user.adapter.out.user.entity.UserMetaEntity;
@@ -6,6 +6,8 @@ import com.dk0124.project.user.adapter.out.user.entity.UserProfileEntity;
 import com.dk0124.project.user.adapter.out.user.repository.UserGithubInfoEntityRepository;
 import com.dk0124.project.user.adapter.out.user.repository.UserMetaEntityRepository;
 import com.dk0124.project.user.adapter.out.user.repository.UserProfileEntityRepository;
+import com.dk0124.project.user.application.port.out.GithubUserJoinPort;
+import com.dk0124.project.user.domain.JoinCommand;
 import com.dk0124.project.user.domain.UserRole;
 import com.dk0124.project.user.domain.UserStatus;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +36,7 @@ public class GithubJoinAdapter implements GithubUserJoinPort {
     public boolean isNickNameAvailable(String nickname) {
         return !userProfileEntityRepository.existsByNickname(nickname);
     }
+
 
     @Override
     public void join(JoinCommand joinCommand) {

@@ -22,6 +22,7 @@ public class UserExistCheckAdapter implements UserExistCheckPort {
 
     @Override
     public UserGithubInfo findByGithubUniqueId(String githubUniqueId) {
+
         var userGithubInfo = userGithubInfoEntityRepository.findByGithubUniqueId(githubUniqueId)
                 .orElseThrow(()-> new UserNotExistException());
 

@@ -13,10 +13,10 @@ import org.springframework.stereotype.Component;
 public class GithubApiAdapter implements GithubApiPort {
 
     @Value("${app.var.github-client-id}")
-    private final String GITHUB_CLIENT_ID;
+    private String GITHUB_CLIENT_ID;
 
     @Value("${app.var.github-client-secret}")
-    private final String GITHUB_CLIENT_SECRET;
+    private String GITHUB_CLIENT_SECRET;
 
 
     private final GithubClientAccessToken githubClientAccessToken;

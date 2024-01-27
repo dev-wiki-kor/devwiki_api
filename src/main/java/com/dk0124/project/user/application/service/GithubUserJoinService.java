@@ -1,7 +1,12 @@
-package com.dk0124.project.common.user.join;
+package com.dk0124.project.user.application.service;
 
 
+import com.dk0124.project.user.adapter.in.dto.GithubUserJoinRequest;
 import com.dk0124.project.user.application.port.out.GithubApiPort;
+import com.dk0124.project.user.application.port.out.GithubUserJoinPort;
+import com.dk0124.project.user.application.GithubUserJoinUsecase;
+import com.dk0124.project.user.domain.JoinCommand;
+import com.dk0124.project.user.exception.JoinFailException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class GithubUserJoinService implements GithubUserJoinUsecase{
+public class GithubUserJoinService implements GithubUserJoinUsecase {
 
     private final GithubApiPort githubApiPort;
 
@@ -21,19 +26,18 @@ public class GithubUserJoinService implements GithubUserJoinUsecase{
     public void join(GithubUserJoinRequest githubUserJoinRequest) {
         // get access token & user info from github
         var userInfoResponse
-                = githubApiPort.callGithubUserInfoByCode(githubUserJoinRequest.code());
-
+                = githubApiPort.callUserInfo(githubUserJoinRequest.bearerToken());
         // check if there is duplicate user
-        if(!githubUserJoinPort.isUniqueIdAvailable(userInfoResponse.uniqueId()))
+        if (!githubUserJoinPort.isUniqueIdAvailable(userInfoResponse.uniqueId()))
             throw new JoinFailException("이미 가입된 깃허브 계정");
 
         //check nickname is usable
-        if(!githubUserJoinPort.isNickNameAvailable(githubUserJoinRequest.nickname()))
+        if (!githubUserJoinPort.isNickNameAvailable(githubUserJoinRequest.nickname()))
             throw new JoinFailException("이미 사용하고 있는 닉네임");
 
 
         // join user
-        githubUserJoinPort.join(new JoinCommand (
+        githubUserJoinPort.join(new JoinCommand(
                 userInfoResponse.uniqueId(),
                 userInfoResponse.email(),
                 userInfoResponse.pageUrl(),

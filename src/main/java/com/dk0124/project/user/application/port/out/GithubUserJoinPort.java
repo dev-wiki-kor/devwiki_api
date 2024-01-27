@@ -1,4 +1,6 @@
-package com.dk0124.project.common.user.join;
+package com.dk0124.project.user.application.port.out;
+
+import com.dk0124.project.user.domain.JoinCommand;
 
 public interface GithubUserJoinPort {
     boolean isUniqueIdAvailable(String uniqueId);

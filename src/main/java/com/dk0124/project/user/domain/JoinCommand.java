@@ -1,4 +1,4 @@
-package com.dk0124.project.common.user.join;
+package com.dk0124.project.user.domain;
 
 public record JoinCommand(
         String githubUniqueId,

@@ -1,6 +1,8 @@
-package com.dk0124.project.common.user.join.test;
+package com.dk0124.project.common.user.join;
 
-import com.dk0124.project.common.user.join.GithubUserJoinPreCheckService;
+import com.dk0124.project.user.adapter.out.github.GithubAccessTokenResponse;
+import com.dk0124.project.user.application.port.out.GithubUserJoinPort;
+import com.dk0124.project.user.application.service.GithubUserJoinPreCheckService;
 import com.dk0124.project.user.adapter.out.github.GitHubClientUserInfoResponse;
 import com.dk0124.project.user.application.port.out.GithubApiPort;
 import com.dk0124.project.user.application.port.out.UserExistCheckPort;
@@ -23,30 +25,40 @@ public class GithubUserJoinPreCheckServiceTest {
     @Mock
     private GithubApiPort githubApiPort;
 
+
     @Mock
-    private UserExistCheckPort userExistCheckPort;
+    private  GithubUserJoinPort githubUserJoinPort;
 
     @InjectMocks
     private GithubUserJoinPreCheckService githubUserJoinPreCheckService;
 
     @Test
     void canRegister_성공() {
-        String code = "code123";
-        when(githubApiPort.callGithubUserInfoByCode(code))
-                .thenReturn(new GitHubClientUserInfoResponse("", "uniqueId123", "nickname", "url", "url"));
-        when(userExistCheckPort.findByGithubUniqueId("uniqueId123")).thenReturn(null);
+        var code = "code123";
+        var githubAccessTokenResponse = new GithubAccessTokenResponse("123", "tokenType", "scope");
+        when(githubApiPort.callAccessToken(code)).thenReturn(githubAccessTokenResponse);
 
-        assertTrue(githubUserJoinPreCheckService.canRegister(code));
+        when(githubApiPort.callUserInfo(githubAccessTokenResponse.getBearerToken()))
+                .thenReturn(new GitHubClientUserInfoResponse("", "uniqueId123", "nickname", "url", "url"));
+
+
+        when(githubUserJoinPort.isUniqueIdAvailable("uniqueId123")).thenReturn(true);
+
+        assertTrue(githubUserJoinPreCheckService.canRegister(code).success());
+
     }
 
     @Test
     void canRegister_실패_이미_존재하는_유저() {
         String code = "code123";
-        when(githubApiPort.callGithubUserInfoByCode(code))
-                .thenReturn(new GitHubClientUserInfoResponse("", "uniqueId123", "nickname", "url", "url"));
-        when(userExistCheckPort.findByGithubUniqueId("uniqueId123"))
-                .thenReturn(UserGithubInfo.of(null, null, "uniqueId123", null, Set.of(UserStatus.NORMAL), true));
+        var githubAccessTokenResponse = new GithubAccessTokenResponse("123", "tokenType", "scope");
+        when(githubApiPort.callAccessToken(code)).thenReturn(githubAccessTokenResponse);
 
-        assertFalse(githubUserJoinPreCheckService.canRegister(code));
+        when(githubApiPort.callUserInfo(githubAccessTokenResponse.getBearerToken()))
+                .thenReturn(new GitHubClientUserInfoResponse("", "uniqueId123", "nickname", "url", "url"));
+
+        when(githubUserJoinPort.isUniqueIdAvailable("uniqueId123")).thenReturn(false);
+
+        assertFalse(githubUserJoinPreCheckService.canRegister(code).success());
     }
 }

@@ -2,7 +2,7 @@ package com.dk0124.project.common.user.login;
 
 
 import com.dk0124.project.user.adapter.in.LoginController;
-import com.dk0124.project.user.application.GithubLoginRequest;
+import com.dk0124.project.user.adapter.in.dto.GithubLoginRequest;
 import com.dk0124.project.user.application.GithubLoginUsecase;
 import org.junit.jupiter.api.Test;
 

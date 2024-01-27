@@ -27,7 +27,6 @@ public class SessionBasedAuthFilter extends OncePerRequestFilter {
 
     /*
      * use JSESSIONID ( based64 encoded ) as redis key for user session
-     *
      * user role & unique id stored in attribute ("USER_INFO")
      * */
 

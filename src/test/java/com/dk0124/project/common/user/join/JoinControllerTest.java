@@ -1,26 +1,23 @@
-package com.dk0124.project.common.user.join.test;
+package com.dk0124.project.common.user.join;
 
-import com.dk0124.project.common.user.join.*;
-import com.dk0124.project.user.adapter.in.LoginController;
+import com.dk0124.project.user.adapter.in.GithubJoinController;
+import com.dk0124.project.user.adapter.in.dto.GithubUserJoinRequest;
+import com.dk0124.project.user.domain.GithubUserCanJoinResult;
+import com.dk0124.project.user.application.GithubUserJoinPreCheckUsecase;
+import com.dk0124.project.user.application.GithubUserJoinUsecase;
+import com.dk0124.project.user.exception.JoinFailException;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -53,7 +50,8 @@ public class JoinControllerTest {
     void 로그인_가능여부_검사_api_성공() throws Exception {
 
         String code = "testCode";
-        when(githubUserJoinPreCheckUsecase.canRegister(code)).thenReturn(true);
+        GithubUserCanJoinResult res = new GithubUserCanJoinResult(true, "accessToken");
+        when(githubUserJoinPreCheckUsecase.canRegister(code)).thenReturn(res);
 
         mockMvc.perform(post("/v1/user/join/checkCode")
                 .content("{\"code\":\"" + code + "\"}")
@@ -70,7 +68,8 @@ public class JoinControllerTest {
     @WithMockUser
     void 로그인_가능여부_검사_api_실패() throws Exception {
         String code = "testCode";
-        when(githubUserJoinPreCheckUsecase.canRegister(code)).thenReturn(false);
+        GithubUserCanJoinResult res = new GithubUserCanJoinResult(false, "accessToken");
+        when(githubUserJoinPreCheckUsecase.canRegister(code)).thenReturn(res);
 
         mockMvc.perform(post("/v1/user/join/checkCode")
                 .content("{\"code\":\"" + code + "\"}")
