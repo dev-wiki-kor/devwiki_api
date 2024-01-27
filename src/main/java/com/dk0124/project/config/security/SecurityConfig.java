@@ -2,6 +2,7 @@ package com.dk0124.project.config.security;
 
 
 import com.dk0124.project.config.security.authProvider.SessionBasedAuthFilter;
+import com.dk0124.project.config.security.csrf.ConditionalCsrfTokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.servlet.server.CookieSameSiteSupplier;
 import org.springframework.context.annotation.Bean;
@@ -52,8 +53,6 @@ public class SecurityConfig {
     // general security config
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        CsrfTokenRequestAttributeHandler requestHandler = new CsrfTokenRequestAttributeHandler();
-        requestHandler.setCsrfRequestAttributeName("_csrf");
 
         http
                 // dont use form login
@@ -61,17 +60,17 @@ public class SecurityConfig {
                 .formLogin(FormLoginConfigurer::disable)
                 .rememberMe(RememberMeConfigurer::disable)
                 // TODO : login session 과 csrf 토큰의 lifecycle 별도로 관리 .. custom csrf token repository  필요 .
-                // csrf token is not generated automatically in spring security v6, this initial token can get from CsrfController .
+                // csrf
                 .csrf((csrf) -> csrf
+                        // csrf -> manually generate csrf token when user got successed login ,
+                        // generating csrf token is on CsrfToken Register on security/csrf
+                        .csrfTokenRepository(conditionalCsrfTokenRepository())
                         .ignoringRequestMatchers("/csrf/**")
                         .ignoringRequestMatchers("/v1/user/**")
-                        .csrfTokenRequestHandler(requestHandler)
+                        .ignoringRequestMatchers("/session/**")
                 )
                 // default cors setting
                 .cors(Customizer.withDefaults())
-
-                .sessionManagement(httpSecuritySessionManagementConfigurer ->
-                        httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
 
                 // security context go with session in JSESSIONID attr user-info
                 .addFilterBefore(new SessionBasedAuthFilter(), RequestHeaderAuthenticationFilter.class)
@@ -93,6 +92,11 @@ public class SecurityConfig {
 
         ;
         return http.build();
+    }
+
+    @Bean
+    public ConditionalCsrfTokenRepository conditionalCsrfTokenRepository() {
+        return new ConditionalCsrfTokenRepository();
     }
 
 

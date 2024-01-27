@@ -1,6 +1,6 @@
 package com.dk0124.project.config.security.authProvider;
 
-import com.dk0124.project.config.security.loginSession.LoginSession;
+import com.dk0124.project.config.security.session.LoginSession;
 import com.dk0124.project.config.security.NoActiveLoginSession;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

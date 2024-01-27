@@ -1,4 +1,4 @@
-package com.dk0124.project.config.security.loginSession;
+package com.dk0124.project.config.security.session;
 
 import com.dk0124.project.user.domain.UserRole;
 import lombok.AllArgsConstructor;

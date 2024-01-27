@@ -1,4 +1,4 @@
-package com.dk0124.project.config.security.loginSession;
+package com.dk0124.project.config.security.session;
 
 import com.dk0124.project.user.domain.UserRole;
 import jakarta.servlet.http.HttpServletRequest;
@@ -7,13 +7,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
-/*
-* FOR TEST
-* */
+
 @Component
 @Slf4j
 @RequiredArgsConstructor
