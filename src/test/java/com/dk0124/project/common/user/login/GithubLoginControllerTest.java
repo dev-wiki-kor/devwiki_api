@@ -1,7 +1,7 @@
 package com.dk0124.project.common.user.login;
 
 
-import com.dk0124.project.user.adapter.in.LoginController;
+import com.dk0124.project.user.adapter.in.GithubLoginController;
 import com.dk0124.project.user.adapter.in.dto.GithubLoginRequest;
 import com.dk0124.project.user.application.GithubLoginUsecase;
 import org.junit.jupiter.api.Test;
@@ -19,8 +19,8 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(LoginController.class)
-class LoginControllerTest {
+@WebMvcTest(GithubLoginController.class)
+class GithubLoginControllerTest {
 
     @Autowired
     private MockMvc mockMvc;

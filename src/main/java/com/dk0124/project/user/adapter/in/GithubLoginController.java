@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/v1/user/login")
 @RequiredArgsConstructor
-public class LoginController {
+public class GithubLoginController {
 
     private final GithubLoginUsecase githubLoginUsecase;
 
