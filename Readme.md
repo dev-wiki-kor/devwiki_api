@@ -95,7 +95,7 @@
 3. usermeta table 에 유저 정보 등록 가능한지 확인 .
 4. 저장 .
 
-![img](/projectDocs/images/GithubUserJoinJoin.png)
+![img](/projectDocs/images/GithubUserJoinService.png)
 
 ### 로그인
 1. oauth Code 값으로 access token 확득
