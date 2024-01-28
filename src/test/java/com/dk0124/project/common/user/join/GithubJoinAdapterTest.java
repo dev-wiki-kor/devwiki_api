@@ -1,6 +1,6 @@
 package com.dk0124.project.common.user.join;
 
-import com.dk0124.project.user.adapter.out.github.GithubJoinAdapter;
+import com.dk0124.project.user.adapter.out.user.GithubJoinAdapter;
 import com.dk0124.project.user.domain.JoinCommand;
 import com.dk0124.project.user.adapter.out.user.entity.UserGithubInfoEntity;
 import com.dk0124.project.user.adapter.out.user.entity.UserMetaEntity;

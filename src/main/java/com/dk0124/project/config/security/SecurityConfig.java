@@ -76,13 +76,10 @@ public class SecurityConfig {
                 .httpBasic(HttpBasicConfigurer::disable)
                 .formLogin(FormLoginConfigurer::disable)
                 .rememberMe(RememberMeConfigurer::disable)
-                // TODO : login session 과 csrf 토큰의 lifecycle 별도로 관리 .. custom csrf token repository  필요 .
                 // CSRF 토큰 저장소 설정
                 .csrf((csrf) -> csrf
                         .csrfTokenRepository(conditionalCsrfTokenRepository())
-                        .ignoringRequestMatchers("/csrf/**")
                         .ignoringRequestMatchers("/v1/user/**")
-                        .ignoringRequestMatchers("/session/**")
                 )
                 // 기본 CORS 설정 적용
                 .cors(Customizer.withDefaults())

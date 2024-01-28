@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.dk0124.project.user.application.service.GithubUserJoinService</OriginalElement>
+  <nodes>
+    <node x="1094.3204079270363" y="432.53401321172714">com.dk0124.project.user.adapter.out.user.GithubJoinAdapter</node>
+    <node x="576.8229209184647" y="633.179329097271">com.dk0124.project.user.application.port.out.GithubApiPort</node>
+    <node x="1570.442960679531" y="526.6430658698082">com.dk0124.project.user.adapter.out.user.repository.UserGithubInfoEntityRepository</node>
+    <node x="1094.3204079270363" y="633.179329097271">com.dk0124.project.user.adapter.out.github.GithubApiAdapter</node>
+    <node x="1570.442960679531" y="382.4249605536461">com.dk0124.project.user.adapter.out.user.repository.UserProfileEntityRepository</node>
+    <node x="1570.442960679531" y="633.179329097271">com.dk0124.project.user.adapter.out.github.GitHubClientUserInfo</node>
+    <node x="214.17310500144958" y="587.6363158226013">com.dk0124.project.user.application.service.GithubUserJoinService</node>
+    <node x="576.8229209184647" y="432.53401321172714">com.dk0124.project.user.application.port.out.GithubUserJoinPort</node>
+    <node x="1570.442960679531" y="740.0292502045631">com.dk0124.project.user.adapter.out.github.GithubClientAccessToken</node>
+    <node x="214.17310500144958" y="476.53401321172714">com.dk0124.project.user.application.GithubUserJoinUsecase</node>
+    <node x="1570.442960679531" y="454.53401321172714">com.dk0124.project.user.adapter.out.user.repository.UserMetaEntityRepository</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.dk0124.project.user.adapter.out.user.GithubJoinAdapter" target="com.dk0124.project.user.application.port.out.GithubUserJoinPort" relationship="REALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.dk0124.project.user.application.service.GithubUserJoinService" target="com.dk0124.project.user.application.GithubUserJoinUsecase" relationship="REALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.dk0124.project.user.adapter.out.user.GithubJoinAdapter" target="com.dk0124.project.user.adapter.out.user.repository.UserGithubInfoEntityRepository" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.dk0124.project.user.adapter.out.user.GithubJoinAdapter" target="com.dk0124.project.user.adapter.out.user.repository.UserMetaEntityRepository" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.dk0124.project.user.application.service.GithubUserJoinService" target="com.dk0124.project.user.application.port.out.GithubApiPort" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.dk0124.project.user.adapter.out.user.GithubJoinAdapter" target="com.dk0124.project.user.adapter.out.user.repository.UserProfileEntityRepository" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.dk0124.project.user.adapter.out.github.GithubApiAdapter" target="com.dk0124.project.user.adapter.out.github.GithubClientAccessToken" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.dk0124.project.user.adapter.out.github.GithubApiAdapter" target="com.dk0124.project.user.adapter.out.github.GitHubClientUserInfo" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.dk0124.project.user.application.service.GithubUserJoinService" target="com.dk0124.project.user.application.port.out.GithubUserJoinPort" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.dk0124.project.user.adapter.out.github.GithubApiAdapter" target="com.dk0124.project.user.application.port.out.GithubApiPort" relationship="REALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.588951751181292" showDependencies="true" x="1012.4205489797417" y="635.6657781106426" />
+  <SelectedNodes>
+    <node>com.dk0124.project.user.application.GithubUserJoinUsecase</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

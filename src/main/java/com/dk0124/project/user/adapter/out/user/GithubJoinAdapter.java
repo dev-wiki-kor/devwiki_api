@@ -1,4 +1,4 @@
-package com.dk0124.project.user.adapter.out.github;
+package com.dk0124.project.user.adapter.out.user;
 
 import com.dk0124.project.user.adapter.out.user.entity.UserGithubInfoEntity;
 import com.dk0124.project.user.adapter.out.user.entity.UserMetaEntity;

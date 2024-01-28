@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.dk0124.project.user.application.service.GithubLoginService</OriginalElement>
+  <nodes>
+    <node x="1134.6073760960526" y="1546.2945796200331">com.dk0124.project.user.application.service.LoginSuccessHandler</node>
+    <node x="1681.078415385529" y="1642.5269928418136">com.dk0124.project.config.security.csrf.CsrfTokenRegister</node>
+    <node x="648.8115125683729" y="1176.8185240753908">com.dk0124.project.user.application.service.GithubLoginService</node>
+    <node x="1163.7283592171643" y="1176.8185240753908">com.dk0124.project.user.application.port.out.UserExistCheckPort</node>
+    <node x="2191.0547038859295" y="1374.056551847712">com.dk0124.project.user.adapter.out.user.repository.UserLoginHistoryEntityRepository</node>
+    <node x="1681.078415385529" y="1361.556551847712">com.dk0124.project.user.adapter.out.user.LoginHistoryAdapter</node>
+    <node x="2193.9577367283187" y="914.5112224905645">com.dk0124.project.user.adapter.out.github.GitHubClientUserInfo</node>
+    <node x="1681.078415385529" y="1465.308930548347">com.dk0124.project.config.security.session.LoginSessionRegister</node>
+    <node x="648.8115125683729" y="992.0804963030696">com.dk0124.project.user.application.GithubLoginUsecase</node>
+    <node x="1134.6073760960526" y="1361.556551847712">com.dk0124.project.user.application.port.out.LoginHistoryPort</node>
+    <node x="2191.0547038859295" y="1014.8388149649863">com.dk0124.project.user.adapter.out.github.GithubClientAccessToken</node>
+    <node x="2191.0547038859295" y="1243.6055091597834">com.dk0124.project.user.adapter.out.user.repository.UserMetaEntityRepository</node>
+    <node x="1181.3655705051688" y="948.0804963030696">com.dk0124.project.user.application.port.out.GithubApiPort</node>
+    <node x="2191.0547038859295" y="1118.222162062385">com.dk0124.project.user.adapter.out.user.repository.UserGithubInfoEntityRepository</node>
+    <node x="1681.078415385529" y="948.0804963030696">com.dk0124.project.user.adapter.out.github.GithubApiAdapter</node>
+    <node x="1681.078415385529" y="1176.8185240753908">com.dk0124.project.user.adapter.out.user.UserExistCheckAdapter</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.dk0124.project.user.application.service.GithubLoginService" target="com.dk0124.project.user.application.port.out.LoginHistoryPort" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.dk0124.project.user.application.service.GithubLoginService" target="com.dk0124.project.user.application.GithubLoginUsecase" relationship="REALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.dk0124.project.user.adapter.out.user.UserExistCheckAdapter" target="com.dk0124.project.user.application.port.out.UserExistCheckPort" relationship="REALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.dk0124.project.user.application.service.GithubLoginService" target="com.dk0124.project.user.application.port.out.UserExistCheckPort" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.dk0124.project.user.application.service.LoginSuccessHandler" target="com.dk0124.project.config.security.session.LoginSessionRegister" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.dk0124.project.user.application.service.GithubLoginService" target="com.dk0124.project.user.application.port.out.GithubApiPort" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.dk0124.project.user.adapter.out.user.UserExistCheckAdapter" target="com.dk0124.project.user.adapter.out.user.repository.UserMetaEntityRepository" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.dk0124.project.user.adapter.out.user.LoginHistoryAdapter" target="com.dk0124.project.user.application.port.out.LoginHistoryPort" relationship="REALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.dk0124.project.user.adapter.out.user.UserExistCheckAdapter" target="com.dk0124.project.user.adapter.out.user.repository.UserGithubInfoEntityRepository" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.dk0124.project.user.application.service.GithubLoginService" target="com.dk0124.project.user.application.service.LoginSuccessHandler" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.dk0124.project.user.adapter.out.github.GithubApiAdapter" target="com.dk0124.project.user.adapter.out.github.GithubClientAccessToken" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.dk0124.project.user.adapter.out.github.GithubApiAdapter" target="com.dk0124.project.user.adapter.out.github.GitHubClientUserInfo" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.dk0124.project.user.application.service.LoginSuccessHandler" target="com.dk0124.project.config.security.csrf.CsrfTokenRegister" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.dk0124.project.user.adapter.out.user.LoginHistoryAdapter" target="com.dk0124.project.user.adapter.out.user.repository.UserLoginHistoryEntityRepository" relationship="TO_ONE">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.dk0124.project.user.adapter.out.github.GithubApiAdapter" target="com.dk0124.project.user.application.port.out.GithubApiPort" relationship="REALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Balloons" zoom="0.44918931378758586" showDependencies="true" x="1304.4954210890448" y="1356.9107762113626" />
+  <SelectedNodes>
+    <node>com.dk0124.project.config.security.csrf.CsrfTokenRegister</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

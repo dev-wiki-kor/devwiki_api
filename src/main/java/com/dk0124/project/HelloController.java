@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/hello")
 public class HelloController {
 
-    @GetMapping("/get")
+    @GetMapping("/attackGet")
     public String getHello(){
         return "hello";
     }
 
-    @PostMapping("/post")
+    @PostMapping("/attackPost")
     public String postHello(){
         return "postHello";
     }
