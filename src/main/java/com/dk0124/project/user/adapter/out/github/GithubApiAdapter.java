@@ -1,5 +1,6 @@
 package com.dk0124.project.user.adapter.out.github;
 
+import com.dk0124.project.global.exception.GithubApiException;
 import com.dk0124.project.user.application.port.out.GithubApiPort;
 import com.dk0124.project.user.exception.GithubAuthFailException;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +42,7 @@ public class GithubApiAdapter implements GithubApiPort {
                     GITHUB_CLIENT_SECRET, code);
         } catch (Exception e) {
             log.error(e.getMessage());
-            throw new GithubAuthFailException();
+            throw new GithubApiException();
         }
     }
 
@@ -57,7 +58,7 @@ public class GithubApiAdapter implements GithubApiPort {
             return gitHubClientUserInfo.call(bearerToken);
         } catch (Exception e) {
             log.error(e.getMessage());
-            throw new GithubAuthFailException();
+            throw new GithubApiException();
         }
     }
 
@@ -80,7 +81,7 @@ public class GithubApiAdapter implements GithubApiPort {
             return gitHubClientUserInfo.call(githubAccessTokenResponse.getBearerToken());
         } catch (Exception e) {
             log.error(e.getMessage());
-            throw new GithubAuthFailException();
+            throw new GithubApiException();
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.dk0124.project.user.adapter.out.user.entity;
 
 
-import com.dk0124.project.common.domain.BaseEntity;
+import com.dk0124.project.global.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

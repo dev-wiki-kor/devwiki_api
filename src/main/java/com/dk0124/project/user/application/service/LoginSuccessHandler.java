@@ -1,7 +1,7 @@
 package com.dk0124.project.user.application.service;
 
-import com.dk0124.project.config.security.csrf.CsrfTokenRegister;
-import com.dk0124.project.config.security.session.LoginSessionRegister;
+import com.dk0124.project.global.config.security.csrf.CsrfTokenRegister;
+import com.dk0124.project.global.config.security.session.LoginSessionRegister;
 import com.dk0124.project.user.domain.UserRole;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

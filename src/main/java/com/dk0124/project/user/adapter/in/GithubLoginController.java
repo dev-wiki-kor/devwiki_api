@@ -1,6 +1,6 @@
 package com.dk0124.project.user.adapter.in;
 
-import com.dk0124.project.config.security.csrf.ConditionalCsrfTokenRepository;
+import com.dk0124.project.global.config.security.csrf.ConditionalCsrfTokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import com.dk0124.project.user.adapter.in.dto.GithubLoginRequest;
 import com.dk0124.project.user.application.GithubLoginUsecase;
