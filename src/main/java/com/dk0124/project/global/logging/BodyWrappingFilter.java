@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.filter.GenericFilterBean;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -26,7 +27,7 @@ public class BodyWrappingFilter {
     }
 
 
-    public static class RequestBodyFilter implements Filter {
+    public static class RequestBodyFilter extends GenericFilterBean {
 
         @Override
         public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
