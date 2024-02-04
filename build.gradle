@@ -84,6 +84,8 @@ dependencies {
     /**LOGGING**/
     // Logback Appender Discord
     implementation 'com.github.napstr:logback-discord-appender:1.0.0'
+    implementation 'ch.qos.logback.contrib:logback-json-classic:0.1.2'
+    implementation 'ch.qos.logback.contrib:logback-jackson:0.1.5'
 
     /**HTTP call **/
     // http 통신
