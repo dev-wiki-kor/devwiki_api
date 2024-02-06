@@ -1,4 +1,4 @@
-package com.dk0124.project.global;
+package com.dk0124.project.global.jpa;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;

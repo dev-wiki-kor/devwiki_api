@@ -1,6 +1,6 @@
 package com.dk0124.project.user.adapter.out.user.entity;
 
-import com.dk0124.project.global.BaseEntity;
+import com.dk0124.project.global.jpa.BaseEntity;
 import com.dk0124.project.user.domain.UserRole;
 import com.dk0124.project.user.domain.UserStatus;
 import jakarta.persistence.*;
