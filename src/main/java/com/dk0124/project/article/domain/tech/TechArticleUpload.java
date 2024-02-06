@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
 
+import java.util.Collections;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -15,14 +16,18 @@ import java.util.Set;
 public class TechArticleUpload {
 
     @NonNull
-    private Long uploaderId;
+    private final Long uploaderId;
 
     @NotBlank(message = "Title is required")
-    private String title;
+    private final String title;
 
     @NotBlank(message = "Content is required")
-    private Content content;
+    private final Content content;
 
     @NotNull(message = "Tech tags are required")
-    private Set<TechTag> techTags;
+    private final Set<TechTag> techTags;
+
+    public Set<TechTag> getTechTags() {
+        return Collections.unmodifiableSet(techTags);
+    }
 }

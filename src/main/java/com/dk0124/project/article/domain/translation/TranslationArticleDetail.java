@@ -13,37 +13,41 @@ import lombok.Getter;
 import lombok.NonNull;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.Set;
 
 @AllArgsConstructor
 @Getter
 public class TranslationArticleDetail {
     @NonNull
-    private String id;
+    private final String id;
 
     @NonNull
-    private Author author;
+    private final Author author;
 
     @NotBlank(message = "Title is required")
     @Size(max = 512)
-    private String title;
+    private final String title;
 
     @NonNull
-    private VersionContent versionContent;
+    private final VersionContent versionContent;
 
     @NotNull(message = "Tech tags are required")// endered for display, e.g., HTML from Markdown
-    private Set<TechTag> techTags;
+    private final Set<TechTag> techTags;
 
     @Min(0)
-    private int totalLikesCount;
+    private final int totalLikesCount;
     @Min(0)
-    private int totalDislikesCount;
+    private final int totalDislikesCount;
     @Min(0)
-    private int totalCommentCount;
+    private final int totalCommentCount;
     @Min(0)
-    private int totalViews;
+    private final int totalViews;
 
     @NonNull
-    private LocalDateTime createdAt;
+    private final LocalDateTime createdAt;
 
+    public Set<TechTag> getTechTags() {
+        return Collections.unmodifiableSet(techTags);
+    }
 }

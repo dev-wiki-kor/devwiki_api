@@ -12,37 +12,41 @@ import lombok.Getter;
 import lombok.NonNull;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.Set;
 
 @AllArgsConstructor
 @Getter
 public class TechArticleDetail {
     @NonNull
-    private Long articleId;
+    private final Long articleId;
 
     @NonNull
-    private Author author;
+    private final Author author;
 
     @NotBlank(message = "Title is required")
     @Size(max = 512)
-    private String title;
+    private final String title;
 
     @NotNull(message = "Content is required")
-    private Content content;
+    private final Content content;
 
     @NotNull(message = "Tech tags are required")
-    private Set<TechTag> techTags;
+    private final Set<TechTag> techTags;
 
     @Min(0)
-    private int likesCount;
+    private final int likesCount;
     @Min(0)
-    private int dislikesCount;
+    private final int dislikesCount;
     @Min(0)
-    private int commentCount;
+    private final int commentCount;
 
     @NonNull
-    private LocalDateTime createdAt;
+    private final LocalDateTime createdAt;
     @NonNull
-    private LocalDateTime updatedAt;
+    private final LocalDateTime updatedAt;
 
+    public Set<TechTag> getTechTags() {
+        return Collections.unmodifiableSet(techTags);
+    }
 }

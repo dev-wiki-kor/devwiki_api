@@ -13,23 +13,25 @@ import java.time.LocalDateTime;
 @Getter
 public class VersionContent {
     @NonNull
-    private Long editor;
+    private final Long editor;
 
     @NonNull
-    private String editorNickname;
+    private final String editorNickname;
 
     @NotNull(message = "Content is required")
-    private Content content;
+    private final Content content;
+
+    private final String versionTitle;
 
     @Min(0)
-    private int likesCount;
+    private final int likesCount;
     @Min(0)
-    private int dislikesCount;
+    private final int dislikesCount;
     @Min(0)
-    private int commentCount;
+    private final int commentCount;
     @Min(0)
-    private int views;
+    private final int views;
 
     @NonNull
-    private LocalDateTime updatedAt;
+    private final LocalDateTime updatedAt;
 }

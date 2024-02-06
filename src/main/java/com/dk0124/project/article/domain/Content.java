@@ -1,6 +1,6 @@
 package com.dk0124.project.article.domain;
 
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
@@ -14,6 +14,6 @@ import lombok.NonNull;
 @Getter
 public class Content {
     @NonNull
-    @Min(1)
-    private String content;
+    @Size(min = 1)
+    private final String content;
 }

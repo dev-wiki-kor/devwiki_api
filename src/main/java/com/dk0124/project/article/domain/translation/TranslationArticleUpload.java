@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.Collections;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -23,4 +24,8 @@ public class TranslationArticleUpload {
 
     @NotBlank(message = "Editor ID is required")
     private String editorId;
+
+    public Set<TechTag> getTechTags() {
+        return Collections.unmodifiableSet(techTags);
+    }
 }
