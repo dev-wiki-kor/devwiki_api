@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Set;
 
-@AllArgsConstructor
+@AllArgsConstructor(staticName = "of")
 @Getter
 public class TechArticleDetail {
     @NonNull
@@ -35,11 +35,11 @@ public class TechArticleDetail {
     private final Set<TechTag> techTags;
 
     @Min(0)
-    private final int likesCount;
+    private final Long likesCount;
     @Min(0)
-    private final int dislikesCount;
+    private final Long dislikesCount;
     @Min(0)
-    private final int commentCount;
+    private final Long commentCount;
 
     @NonNull
     private final LocalDateTime createdAt;
