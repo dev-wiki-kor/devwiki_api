@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface TechArticleEntityRepository extends JpaRepository<TechArticleEntity, Long> {
     @Modifying
     @Transactional
-    @Query("UPDATE TechArticleEntity a SET a.viewCount = a.viewCount + 1, a.version = a.version + 1 WHERE a.articleId = :articleId AND a.version = :version")
-    int updateViewCount(@Param("articleId") Long articleId, @Param("version") Long version);
+    @Query("UPDATE TechArticleEntity a SET a.viewCount = a.viewCount + 1, a.version_ = a.version_ + 1 WHERE a.articleId = :articleId AND a.version_ = :version_")
+    int updateViewCount(@Param("articleId") Long articleId, @Param("version_") Long version_);
 }

@@ -12,9 +12,7 @@ import com.dk0124.project.article.domain.Author;
 import com.dk0124.project.article.domain.tech.TechArticleDetail;
 import com.dk0124.project.article.exception.InvalidUserException;
 import com.dk0124.project.global.constants.TechTag;
-import com.dk0124.project.user.adapter.out.user.entity.UserMetaEntity;
-import com.dk0124.project.user.domain.UserRole;
-import com.dk0124.project.user.domain.UserStatus;
+
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.api.introspector.FieldReflectionArbitraryIntrospector;
 import org.junit.jupiter.api.Test;
@@ -59,13 +57,6 @@ class TechArticleServiceTest {
     static final FixtureMonkey monkey = FixtureMonkey.builder()
             .objectIntrospector(FieldReflectionArbitraryIntrospector.INSTANCE)
             .build();
-
-    UserMetaEntity savedEntity = monkey.giveMeBuilder(UserMetaEntity.class)
-            .set("id", 1L)
-            .set("userRoles", Set.of(UserRole.USER))
-            .set("userStatus", Set.of(UserStatus.NORMAL))
-            .set("active", true)
-            .sample();
 
     @Test
     void 업로드_성공() {
@@ -140,7 +131,7 @@ class TechArticleServiceTest {
 
         assertNotNull(detail);
         assertEquals(VALID_ARTICLE_ID, detail.getArticleId());
-        verify(repository, times(1)).updateViewCount(VALID_ARTICLE_ID, article.getVersion());
+        verify(repository, times(1)).updateViewCount(VALID_ARTICLE_ID, article.getVersion_());
     }
 
 

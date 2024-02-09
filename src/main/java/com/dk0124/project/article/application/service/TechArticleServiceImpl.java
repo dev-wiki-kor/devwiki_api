@@ -12,7 +12,7 @@ import com.dk0124.project.article.domain.ArticleType;
 import com.dk0124.project.article.domain.Author;
 import com.dk0124.project.article.domain.Content;
 import com.dk0124.project.article.domain.tech.TechArticleDetail;
-import com.dk0124.project.article.exception.InValidArticleId;
+import com.dk0124.project.article.exception.InvalidArticleIdException;
 import com.dk0124.project.article.exception.InvalidUserException;
 import com.dk0124.project.global.constants.TechTag;
 import jakarta.transaction.Transactional;
@@ -42,7 +42,7 @@ public class TechArticleServiceImpl implements TechArticleService {
     @Transactional
     public void update(TechArticleUpdateRequest request, Long userId) {
         TechArticleEntity article = repository.findById(request.articleId())
-                .orElseThrow(() -> new InValidArticleId());
+                .orElseThrow(() -> new InvalidArticleIdException());
 
         validateUserAccess(article, userId);
         updateArticleFields(article, request);
@@ -52,7 +52,7 @@ public class TechArticleServiceImpl implements TechArticleService {
     @Override
     public void delete(Long articleId, Long userId) {
         TechArticleEntity article = repository.findById(articleId)
-                .orElseThrow(() -> new InValidArticleId());
+                .orElseThrow(() -> new InvalidArticleIdException());
 
         validateUserAccess(article, userId);
         repository.delete(article);
@@ -62,10 +62,10 @@ public class TechArticleServiceImpl implements TechArticleService {
     @Override
     public TechArticleDetail detail(Long articleId) {
         TechArticleEntity article = repository.findById(articleId)
-                .orElseThrow(() -> new InValidArticleId());
+                .orElseThrow(() -> new InvalidArticleIdException());
 
         Author author = authorPort.get(article.getAuthorId());
-        repository.updateViewCount(articleId, article.getVersion());
+        repository.updateViewCount(articleId, article.getVersion_());
         return convertToDetail(article, author);
     }
 

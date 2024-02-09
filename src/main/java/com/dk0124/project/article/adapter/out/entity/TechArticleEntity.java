@@ -60,8 +60,8 @@ public class TechArticleEntity extends BaseEntity {
     @Column(name = "DELETED")
     private boolean deleted = Boolean.FALSE;
 
-    @Column(name = "VERSION")
-    private Long version = 0L;
+    @Column(name = "VERSION_")
+    private Long version_ = 0L;
 
     private TechArticleEntity(Long authorId, String title, String content, Set<TechTag> techTags) {
         this.title = title;
