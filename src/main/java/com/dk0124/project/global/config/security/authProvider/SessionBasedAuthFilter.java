@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -33,17 +34,15 @@ public class SessionBasedAuthFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
-            // 로그인 경로의 요청인 경우 세션 검증을 생략
-            if (!request.getRequestURI().equals(LOGIN_PATH) && !request.getRequestURI().equals(SIGNIN_PATH)) {
-                var session = request.getSession(false);
-                if (session != null) {
-                    var userInfo = getUserFromSession(session);
-                    if (userInfo != null) {
-                        var authentication = new PreAuthenticatedAuthenticationToken(
-                                userInfo.getUsername(), null, userInfo.getAuthorities()
-                        );
-                        SecurityContextHolder.getContext().setAuthentication(authentication);
-                    }
+
+            var session = request.getSession(false);
+            if (session != null) {
+                var userInfo = getUserFromSession(session); // userInfo는 UserDetails를 구현하는 클래스의 인스턴스
+                if (userInfo instanceof UserDetails) { // userInfo가 UserDetails의 인스턴스인지 확인
+                    var authentication = new PreAuthenticatedAuthenticationToken(
+                            userInfo, null, userInfo.getAuthorities() // userInfo를 Principal로 사용
+                    );
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }
         } catch (Exception e) {

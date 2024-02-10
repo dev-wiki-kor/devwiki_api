@@ -5,11 +5,13 @@ import com.dk0124.project.global.jpa.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "USER_INFO_ENTITY")
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 @NoArgsConstructor
 public class UserProfileEntity extends BaseEntity {
 

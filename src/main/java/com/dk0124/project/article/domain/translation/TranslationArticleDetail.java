@@ -2,7 +2,6 @@ package com.dk0124.project.article.domain.translation;
 
 
 import com.dk0124.project.article.domain.Author;
-import com.dk0124.project.article.domain.Content;
 import com.dk0124.project.global.constants.TechTag;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -16,11 +15,11 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Set;
 
-@AllArgsConstructor
+@AllArgsConstructor(staticName = "of")
 @Getter
 public class TranslationArticleDetail {
     @NonNull
-    private final String id;
+    private final Long id;
 
     @NonNull
     private final Author author;
@@ -36,13 +35,13 @@ public class TranslationArticleDetail {
     private final Set<TechTag> techTags;
 
     @Min(0)
-    private final int totalLikesCount;
+    private final Long totalLikesCount;
     @Min(0)
-    private final int totalDislikesCount;
+    private final Long totalDislikesCount;
     @Min(0)
-    private final int totalCommentCount;
+    private final Long totalCommentCount;
     @Min(0)
-    private final int totalViews;
+    private final Long totalViews;
 
     @NonNull
     private final LocalDateTime createdAt;

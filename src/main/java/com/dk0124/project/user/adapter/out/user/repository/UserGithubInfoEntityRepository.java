@@ -9,4 +9,6 @@ public interface UserGithubInfoEntityRepository extends JpaRepository<UserGithub
     Optional<UserGithubInfoEntity> findByGithubUniqueId(String githubUniqueId);
 
     boolean existsByGithubUniqueId(String githubUniqueId);
+
+    Optional<UserGithubInfoEntity> findByUserMetaId(Long userId);
 }

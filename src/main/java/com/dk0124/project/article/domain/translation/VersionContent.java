@@ -9,7 +9,7 @@ import lombok.NonNull;
 
 import java.time.LocalDateTime;
 
-@AllArgsConstructor
+@AllArgsConstructor(staticName = "of")
 @Getter
 public class VersionContent {
     @NonNull
@@ -23,14 +23,17 @@ public class VersionContent {
 
     private final String versionTitle;
 
+    @NonNull
+    private final Long version;
+
     @Min(0)
-    private final int likesCount;
+    private final Long likesCount;
     @Min(0)
-    private final int dislikesCount;
+    private final Long dislikesCount;
     @Min(0)
-    private final int commentCount;
+    private final Long commentCount;
     @Min(0)
-    private final int views;
+    private final Long views;
 
     @NonNull
     private final LocalDateTime updatedAt;

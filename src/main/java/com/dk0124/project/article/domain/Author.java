@@ -7,16 +7,16 @@ import lombok.Getter;
 /**
  * 공통-> 안변함
  * */
-@AllArgsConstructor
+@AllArgsConstructor(staticName = "of")
 @Getter
 public class Author {
     @NotBlank
-    private String userId;
+    private Long userId;
 
     @NotBlank
     private String nickname;
 
     @NotBlank
-    private String avatar;
+    private String githubUrl;
 
 }

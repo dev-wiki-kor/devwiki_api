@@ -39,7 +39,6 @@ public class UserExistCheckAdapter implements UserExistCheckPort {
         if(userInfo.getUserStatus().contains(UserStatus.BANNED))
             throw new BannedUserLoginExceptiopn("로그인 할 수 없는 유저입니다. ( 제한된 유저 )");
 
-
         // 4) 위의 유저를 UserGithubInfo 로 집계  해서 리턴.
         return UserGithubInfo.of(
                 userGithubInfo.getId(),
