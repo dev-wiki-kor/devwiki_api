@@ -9,8 +9,11 @@ import com.dk0124.project.article.application.port.in.TranslationArticleDeleteUs
 import com.dk0124.project.article.exception.InvalidArticleIdException;
 import com.dk0124.project.article.exception.InvalidArticleVersionException;
 import com.dk0124.project.article.exception.InvalidUserException;
+import com.dk0124.project.global.constants.ArticleConstant;
 import jakarta.transaction.Transactional;
+
 import java.util.Objects;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,18 +24,17 @@ public class TranslationArticleDeleteService implements TranslationArticleDelete
     private final TranslationArticleVersionContentEntityRepository versionContentRepository;
     private final TranslationArticleEntityRepository translationArticleRepository;
 
-    private final Long INITIAL_VERSION = 0L;
 
     @Override
     @Transactional
     public void delete(TranslationArticleDeleteRequest request, Long userId) {
 
         var article = translationArticleRepository.findById(request.articleId())
-                .orElseThrow(() -> new InvalidArticleIdException());
+                .orElseThrow(InvalidArticleIdException::new);
 
         var version
                 = versionContentRepository.findByArticleIdAndVersion(request.articleId(), request.version())
-                .orElseThrow(() -> new InvalidArticleVersionException());
+                .orElseThrow(InvalidArticleVersionException::new);
 
         canDeleteByUser(version, userId);
 
@@ -41,12 +43,12 @@ public class TranslationArticleDeleteService implements TranslationArticleDelete
 
     private void deleteVersion(TranslationArticleEntity article, TranslationArticleVersionContentEntity version) {
         versionContentRepository.delete(version);
-        if (Objects.equals(version.getVersion(), INITIAL_VERSION))
+        if (versionContentRepository.countByArticleId(article.getArticleId()) <= 0)
             translationArticleRepository.delete(article);
     }
 
     private void canDeleteByUser(TranslationArticleVersionContentEntity version, Long userId) {
-        if (version.getEditorId() != userId)
+        if (!version.getEditorId().equals(userId))
             throw new InvalidUserException();
     }
 }

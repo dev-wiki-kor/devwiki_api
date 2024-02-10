@@ -6,6 +6,7 @@ import com.dk0124.project.article.adapter.out.repository.TranslationArticleEntit
 import com.dk0124.project.article.adapter.out.repository.TranslationArticleVersionContentEntityRepository;
 import com.dk0124.project.article.application.port.out.TranslationArticleUploadPort;
 import com.dk0124.project.article.domain.TranslationArticleUploadCommand;
+import com.dk0124.project.global.constants.ArticleConstant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,7 @@ public class TranslationArticleUploadAdapter implements TranslationArticleUpload
         versionContentEntityRepository.save(
                 TranslationArticleVersionContentEntity.of(
                         articleMeta.getArticleId(),
-                        0L,
+                        ArticleConstant.INITAIL_ARTICLE_VERSION,
                         command.authorId(),
                         command.content()
                 )

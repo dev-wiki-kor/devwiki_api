@@ -3,12 +3,15 @@ package com.dk0124.project.global.config.security;
 
 import com.dk0124.project.global.config.security.authProvider.SessionBasedAuthFilter;
 import com.dk0124.project.global.config.security.csrf.ConditionalCsrfTokenRepository;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.boot.web.servlet.server.CookieSameSiteSupplier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer;
 import org.springframework.security.config.annotation.web.configurers.RememberMeConfigurer;
@@ -17,6 +20,8 @@ import org.springframework.security.config.annotation.web.configurers.RememberMe
 
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.preauth.RequestHeaderAuthenticationFilter;
+import org.springframework.security.web.csrf.CsrfTokenRequestHandler;
+import org.springframework.security.web.csrf.XorCsrfTokenRequestAttributeHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -71,6 +76,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
+        XorCsrfTokenRequestAttributeHandler delegate = new XorCsrfTokenRequestAttributeHandler();
+        CsrfTokenRequestHandler requestHandler = delegate::handle;
+
         http
                 // Form 로그인 및 HTTP 기본 인증 비활성화
                 .httpBasic(HttpBasicConfigurer::disable)
@@ -79,7 +87,9 @@ public class SecurityConfig {
                 // CSRF 토큰 저장소 설정
                 .csrf((csrf) -> csrf
                         .csrfTokenRepository(conditionalCsrfTokenRepository())
+                        .csrfTokenRequestHandler(requestHandler)
                         .ignoringRequestMatchers("/v1/user/**")
+                        .ignoringRequestMatchers(PathRequest.toH2Console())
                 )
                 // 기본 CORS 설정 적용
                 .cors(Customizer.withDefaults())
@@ -89,6 +99,7 @@ public class SecurityConfig {
 
                 // 로그인, 가입, 세션 관련 기능에 대한 CSRF 및 인증 필터 제외 설정
                 .authorizeHttpRequests((authorize) -> authorize
+                        .requestMatchers(PathRequest.toH2Console()).permitAll()
                         .requestMatchers("/v1/user/**").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -111,5 +122,13 @@ public class SecurityConfig {
         return new ConditionalCsrfTokenRepository();
     }
 
+
+
+    @Bean
+    @ConditionalOnProperty(name = "spring.h2.console.enabled",havingValue = "true")
+    public WebSecurityCustomizer configureH2ConsoleEnable() {
+        return web -> web.ignoring()
+                .requestMatchers(PathRequest.toH2Console());
+    }
 
 }

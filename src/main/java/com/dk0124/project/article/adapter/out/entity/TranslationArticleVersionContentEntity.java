@@ -1,6 +1,7 @@
 package com.dk0124.project.article.adapter.out.entity;
 
 
+import com.dk0124.project.global.constants.ArticleConstant;
 import com.dk0124.project.global.jpa.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -12,11 +13,9 @@ import org.hibernate.annotations.Where;
 @Table(name = "article_version_contents")
 @NoArgsConstructor
 @Getter
-@SQLDelete(sql = "UPDATE Tarticle_version_contents SET deleted = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE Tarticle_version_contents SET deleted = true WHERE ARTICLE_VERSION_CONTENT_ID = ?")
 @Where(clause = "deleted = false")
 public class TranslationArticleVersionContentEntity extends BaseEntity {
-
-    private final Long INITIAL_VERSION = 0L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +26,7 @@ public class TranslationArticleVersionContentEntity extends BaseEntity {
     private Long articleId;
 
     @Column(name = "VERSION", nullable = false)
-    private Long version = INITIAL_VERSION;
+    private Long version = ArticleConstant.INITAIL_ARTICLE_VERSION;
 
     @JoinColumn(name = "EDITOR_ID")
     private Long editorId;

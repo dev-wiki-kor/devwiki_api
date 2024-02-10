@@ -15,7 +15,7 @@ import java.util.Set;
 @Table(name = "TRANSLATION_ARTICLE")
 @NoArgsConstructor
 @Getter
-@SQLDelete(sql = "UPDATE TRANSLATION_ARTICLE SET deleted = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE TRANSLATION_ARTICLE SET deleted = true WHERE ARTICLE_ID = ?")
 @Where(clause = "deleted = false")
 public class TranslationArticleEntity extends BaseEntity {
     @Id
@@ -30,7 +30,7 @@ public class TranslationArticleEntity extends BaseEntity {
     private Long authorId;
 
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "ARTICLE_TAGS", joinColumns = @JoinColumn(name = "ARTICLE_TAGS"))
     @Column(name = "TECH_TAGS")
     @Enumerated(EnumType.STRING)

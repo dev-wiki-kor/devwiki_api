@@ -23,6 +23,8 @@ public interface TranslationArticleVersionContentEntityRepository extends JpaRep
 
     void deleteByArticleIdAndVersion(Long articleId, Long version);
 
+    Long countByArticleId(Long articleId);
+
     Optional<TranslationArticleVersionContentEntity> findByArticleIdAndVersion(Long articleId, Long version);
 
 }

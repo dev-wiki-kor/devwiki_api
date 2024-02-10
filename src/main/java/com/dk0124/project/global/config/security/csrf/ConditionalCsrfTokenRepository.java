@@ -32,6 +32,8 @@ public class ConditionalCsrfTokenRepository implements CsrfTokenRepository{
 
     @Override
     public CsrfToken loadToken(HttpServletRequest request) {
+        var header = request.getHeader("X-CSRF-TOKEN");
+        var headers = request.getHeaderNames();
         return delegatedRepository.loadToken(request);
     }
 
