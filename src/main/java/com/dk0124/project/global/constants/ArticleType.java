@@ -1,4 +1,4 @@
-package com.dk0124.project.article.domain;
+package com.dk0124.project.global.constants;
 
 import java.util.Map;
 import java.util.Optional;

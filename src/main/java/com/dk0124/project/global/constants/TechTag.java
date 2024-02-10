@@ -1,7 +1,5 @@
 package com.dk0124.project.global.constants;
 
-import com.dk0124.project.article.domain.ArticleType;
-
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;

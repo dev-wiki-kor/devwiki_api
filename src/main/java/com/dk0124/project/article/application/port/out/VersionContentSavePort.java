@@ -1,4 +1,4 @@
-package com.dk0124.project.article.application.service;
+package com.dk0124.project.article.application.port.out;
 
 import com.dk0124.project.article.domain.SaveNewContentCommand;
 

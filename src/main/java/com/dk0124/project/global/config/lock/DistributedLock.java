@@ -4,6 +4,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.concurrent.TimeUnit;
 
 
 @Target(ElementType.METHOD)
@@ -12,8 +13,11 @@ public @interface DistributedLock {
 
     String key();
 
-    long waitMillis() default 2000L;
+    TimeUnit timeUnit() default TimeUnit.SECONDS;
 
-    long leaseMillis() default 10000L;
+    long waitTime() default 10L;
+
+    long leaseTime() default 5L;
+
 
 }

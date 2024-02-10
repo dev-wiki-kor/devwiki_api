@@ -1,4 +1,4 @@
-package com.dk0124.project.user.article.tech;
+package com.dk0124.project.IT;
 
 import com.dk0124.project.article.adapter.in.TranslationArticleUpdateRequest;
 import com.dk0124.project.article.adapter.out.entity.TranslationArticleEntity;
@@ -9,7 +9,7 @@ import com.dk0124.project.article.application.service.TranslationArticleUpdateSe
 import com.dk0124.project.global.constants.TechTag;
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.api.introspector.FieldReflectionArbitraryIntrospector;
-import jakarta.transaction.Transactional;
+
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,6 @@ public class TranslationUpdateIT {
     @Autowired
     private TranslationArticleUpdateService updateService;
 
-
     @Autowired
     private TranslationArticleVersionContentEntityRepository versionContentRepository;
 
@@ -49,20 +48,22 @@ public class TranslationUpdateIT {
 
     private final String INITIAL_CONTENT = "CONETENT";
 
-    private final int ITERATION = 100;
+    private final int ITERATION = 1000;
 
     static final FixtureMonkey monkey = FixtureMonkey.builder()
             .objectIntrospector(FieldReflectionArbitraryIntrospector.INSTANCE)
             .build();
 
     @Test
-    @Transactional
-    void 비동기_update_id_1000회_시도() {
+    void 비동기_update_id_1000회_시도() throws InterruptedException {
         // Given
         readyDocument();
 
         // When
         asyncUpdateAndWait(ITERATION);
+
+        //  all.join() 했는데 로컬에서 쓰레드 반환 안되었다고 에러 떠서 추가함 ...
+        Thread.sleep(1000);
 
         // Then
         // iteration 횟수만큼 버전이 생겼는지 확인 .
@@ -89,19 +90,21 @@ public class TranslationUpdateIT {
 
     private void asyncUpdateAndWait(int iter) {
 
-        List<CompletableFuture<Object>> completableFutureList =
+        List<CompletableFuture<Boolean>> completableFutureList =
                 IntStream.range(0, ITERATION)
                         .mapToObj(e -> CompletableFuture.supplyAsync(() -> {
-                            log.info("LOG!!!!!!!!!!!!!!!!!!!!!{}th update ", e);
                             updateService.update(
                                     new TranslationArticleUpdateRequest(
                                             ARTICLE_ID,
                                             INITIAL_VERSION,
-                                            "content" + e
+                                            String.valueOf(e) + "content"
                                     ), USER_ID
                             );
-
-                            return null;
+                            log.info("{}th update ", e);
+                            return Boolean.TRUE;
+                        }).exceptionally(ex -> {
+                            log.error("Error during update operation", ex);
+                            return Boolean.FALSE; // 실패한 경우 false 반환
                         }))
                         .collect(Collectors.toList());
 
@@ -133,8 +136,6 @@ public class TranslationUpdateIT {
                 .set("content", INITIAL_CONTENT)
                 .sample();
         versionContentRepository.save(versionContent);
-
-
     }
 
 }

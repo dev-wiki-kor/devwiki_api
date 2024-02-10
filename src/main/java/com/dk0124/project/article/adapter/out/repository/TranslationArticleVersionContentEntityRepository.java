@@ -21,6 +21,8 @@ public interface TranslationArticleVersionContentEntityRepository extends JpaRep
     @Query("SELECT MAX(v.version) FROM TranslationArticleVersionContentEntity v WHERE v.articleId = :articleId GROUP BY v.articleId")
     Long findMaxVersionByArticleId(@Param("articleId") Long articleId);
 
+    void deleteByArticleIdAndVersion(Long articleId, Long version);
+
     Optional<TranslationArticleVersionContentEntity> findByArticleIdAndVersion(Long articleId, Long version);
 
 }

@@ -1,4 +1,4 @@
-package com.dk0124.project.article.application;
+package com.dk0124.project.article.application.port.in;
 
 import com.dk0124.project.article.adapter.in.TranslationArticleUploadRequest;
 

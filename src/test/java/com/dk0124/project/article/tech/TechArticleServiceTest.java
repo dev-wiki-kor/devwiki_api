@@ -1,4 +1,4 @@
-package com.dk0124.project.user.article.tech;
+package com.dk0124.project.article.tech;
 
 import com.dk0124.project.article.adapter.in.TechArticleUpdateRequest;
 import com.dk0124.project.article.adapter.in.TechArticleUploadRequest;

@@ -1,4 +1,4 @@
-package com.dk0124.project.article.application;
+package com.dk0124.project.article.application.port.out;
 
 public interface TranslationArticleViewPort {
 

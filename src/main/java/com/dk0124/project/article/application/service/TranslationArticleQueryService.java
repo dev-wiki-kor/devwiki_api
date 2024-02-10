@@ -1,9 +1,9 @@
 package com.dk0124.project.article.application.service;
 
 import com.dk0124.project.article.adapter.out.TranslationArticleDetailAdapter;
-import com.dk0124.project.article.application.TranslationArticleQuery;
+import com.dk0124.project.article.application.port.in.TranslationArticleQuery;
 
-import com.dk0124.project.article.application.TranslationArticleViewPort;
+import com.dk0124.project.article.application.port.out.TranslationArticleViewPort;
 import com.dk0124.project.article.domain.translation.TranslationArticleDetail;
 
 import com.dk0124.project.global.constants.TechTag;

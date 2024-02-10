@@ -1,6 +1,6 @@
 package com.dk0124.project.article.adapter.out.entity;
 
-import com.dk0124.project.article.domain.ArticleType;
+import com.dk0124.project.global.constants.ArticleType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -5,6 +5,8 @@ import com.dk0124.project.global.jpa.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,6 +15,8 @@ import java.util.Set;
 @Table(name = "TRANSLATION_ARTICLE")
 @NoArgsConstructor
 @Getter
+@SQLDelete(sql = "UPDATE TRANSLATION_ARTICLE SET deleted = true WHERE id = ?")
+@Where(clause = "deleted = false")
 public class TranslationArticleEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,6 +50,9 @@ public class TranslationArticleEntity extends BaseEntity {
 
     @Column(name = "VERSION_")
     private Long version_ = 0L;
+
+    @Column(name = "DELETED")
+    private boolean deleted = Boolean.FALSE;
 
     private TranslationArticleEntity(String title, Long authorId, Set<TechTag> techTags) {
         this.title = title;

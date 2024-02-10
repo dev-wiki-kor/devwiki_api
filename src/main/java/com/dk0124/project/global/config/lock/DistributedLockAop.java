@@ -1,18 +1,18 @@
 package com.dk0124.project.global.config.lock;
 
 
-import com.dk0124.project.article.adapter.out.ArticleVersionAdapter;
-import com.dk0124.project.article.exception.CanNotGenerateVersionException;
-import com.dk0124.project.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
+
 
 @Aspect
 @Component
@@ -20,34 +20,45 @@ import java.lang.reflect.Method;
 @Slf4j
 public class DistributedLockAop {
 
-    private static final String LOCK_PREFIX = "REDIS_LOCK:";
+    private static final String REDISSON_LOCK_PREFIX = "LOCK:";
 
-    private final DistributedLockManager lockManager;
+    private final RedissonClient redissonClient;
     private final LockManageTransaction lockManageTransaction;
+
+    static int count = 0 ;
 
     @Around("@annotation(com.dk0124.project.global.config.lock.DistributedLock)")
     public Object lock(final ProceedingJoinPoint joinPoint) throws Throwable {
-        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        MethodSignature signature = (MethodSignature)joinPoint.getSignature();
         Method method = signature.getMethod();
         DistributedLock distributedLock = method.getAnnotation(DistributedLock.class);
 
-        String key = LOCK_PREFIX +
+        String key = REDISSON_LOCK_PREFIX +
                 DistributedLockKeyParser.getDynamicValue(signature.getParameterNames(), joinPoint.getArgs(),
                         distributedLock.key());
 
-        boolean locked = false;
+        int scope = count ++ ;
+
+        log.info("obtain lock frome scope  {}" , scope);
+        RLock rLock = redissonClient.getLock(key);
 
         try {
-            locked = lockManager.tryLock(key, distributedLock.leaseMillis(), distributedLock.waitMillis());
-            if (!locked) {
-                log.warn("Failed to acquire distributed lock for key: {}", key);
-                throw new CanNotAcquireLockException(ExceptionCode.INTERNAL_SEVER_ERROR);
-            }
+            boolean available = rLock.tryLock(distributedLock.waitTime(), distributedLock.leaseTime(),
+                    distributedLock.timeUnit());
+            if (!available)
+                return false;
 
             return lockManageTransaction.proceed(joinPoint);
+        } catch (InterruptedException e) {
+            throw new InterruptedException();
         } finally {
-            if (locked)
-                lockManager.release(key);
+            try {
+                if(rLock.isHeldByCurrentThread()){
+                    rLock.unlock();
+                }
+            } catch (IllegalArgumentException e) {
+                log.info("Redisson lock Already unlock {} of {}", key, method);
+            }
         }
     }
 }

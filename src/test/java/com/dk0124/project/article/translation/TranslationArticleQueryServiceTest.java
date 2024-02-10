@@ -1,8 +1,8 @@
-package com.dk0124.project.user.article.translation;
+package com.dk0124.project.article.translation;
 
 import com.dk0124.project.article.adapter.out.TranslationArticleDetailAdapter;
 import com.dk0124.project.article.application.service.TranslationArticleQueryService;
-import com.dk0124.project.article.application.TranslationArticleViewPort;
+import com.dk0124.project.article.application.port.out.TranslationArticleViewPort;
 import com.dk0124.project.article.domain.Author;
 import com.dk0124.project.article.domain.Content;
 import com.dk0124.project.article.domain.translation.TranslationArticleDetail;
