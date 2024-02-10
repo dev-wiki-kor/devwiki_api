@@ -4,7 +4,7 @@ package com.dk0124.project.user.application.service;
 import com.dk0124.project.user.adapter.in.dto.GithubUserJoinRequest;
 import com.dk0124.project.user.application.port.out.GithubApiPort;
 import com.dk0124.project.user.application.port.out.GithubUserJoinPort;
-import com.dk0124.project.user.application.GithubUserJoinUsecase;
+import com.dk0124.project.user.application.port.in.GithubUserJoinUsecase;
 import com.dk0124.project.user.domain.JoinCommand;
 import com.dk0124.project.user.exception.AccountAlreadyExistException;
 import com.dk0124.project.user.exception.NickNameAlreadyExistException;

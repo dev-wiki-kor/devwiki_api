@@ -1,7 +1,7 @@
 package com.dk0124.project.article.application.port.in;
 
-import com.dk0124.project.article.adapter.in.TechArticleUpdateRequest;
-import com.dk0124.project.article.adapter.in.TechArticleUploadRequest;
+import com.dk0124.project.article.adapter.in.dto.TechArticleUpdateRequest;
+import com.dk0124.project.article.adapter.in.dto.TechArticleUploadRequest;
 import com.dk0124.project.article.domain.tech.TechArticleDetail;
 
 public interface TechArticleService {

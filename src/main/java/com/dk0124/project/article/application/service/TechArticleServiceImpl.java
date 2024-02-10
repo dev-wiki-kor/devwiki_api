@@ -1,7 +1,7 @@
 package com.dk0124.project.article.application.service;
 
-import com.dk0124.project.article.adapter.in.TechArticleUpdateRequest;
-import com.dk0124.project.article.adapter.in.TechArticleUploadRequest;
+import com.dk0124.project.article.adapter.in.dto.TechArticleUpdateRequest;
+import com.dk0124.project.article.adapter.in.dto.TechArticleUploadRequest;
 import com.dk0124.project.article.adapter.out.entity.ArticleActionHistoryEntity;
 import com.dk0124.project.article.adapter.out.entity.TechArticleEntity;
 import com.dk0124.project.article.adapter.out.repository.ArticleActionHistoryEntityRepository;

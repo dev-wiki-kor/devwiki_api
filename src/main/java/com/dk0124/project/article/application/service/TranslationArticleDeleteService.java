@@ -1,6 +1,6 @@
 package com.dk0124.project.article.application.service;
 
-import com.dk0124.project.article.adapter.in.TranslationArticleDeleteRequest;
+import com.dk0124.project.article.adapter.in.dto.TranslationArticleDeleteRequest;
 import com.dk0124.project.article.adapter.out.entity.TranslationArticleEntity;
 import com.dk0124.project.article.adapter.out.entity.TranslationArticleVersionContentEntity;
 import com.dk0124.project.article.adapter.out.repository.TranslationArticleEntityRepository;
@@ -9,10 +9,7 @@ import com.dk0124.project.article.application.port.in.TranslationArticleDeleteUs
 import com.dk0124.project.article.exception.InvalidArticleIdException;
 import com.dk0124.project.article.exception.InvalidArticleVersionException;
 import com.dk0124.project.article.exception.InvalidUserException;
-import com.dk0124.project.global.constants.ArticleConstant;
 import jakarta.transaction.Transactional;
-
-import java.util.Objects;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

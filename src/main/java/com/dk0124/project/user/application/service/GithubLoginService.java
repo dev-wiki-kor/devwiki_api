@@ -3,7 +3,7 @@ package com.dk0124.project.user.application.service;
 
 
 import com.dk0124.project.user.adapter.in.dto.GithubLoginRequest;
-import com.dk0124.project.user.application.GithubLoginUsecase;
+import com.dk0124.project.user.application.port.in.GithubLoginUsecase;
 import com.dk0124.project.user.application.port.out.GithubApiPort;
 import com.dk0124.project.user.application.port.out.LoginHistoryPort;
 import com.dk0124.project.user.application.port.out.UserExistCheckPort;

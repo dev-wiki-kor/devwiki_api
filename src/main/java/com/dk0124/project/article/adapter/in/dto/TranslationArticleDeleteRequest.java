@@ -1,4 +1,4 @@
-package com.dk0124.project.article.adapter.in;
+package com.dk0124.project.article.adapter.in.dto;
 
 import lombok.NonNull;
 

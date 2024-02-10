@@ -1,5 +1,8 @@
 package com.dk0124.project.article.adapter.in;
 
+import com.dk0124.project.article.adapter.in.dto.TranslationArticleDeleteRequest;
+import com.dk0124.project.article.adapter.in.dto.TranslationArticleUpdateRequest;
+import com.dk0124.project.article.adapter.in.dto.TranslationArticleUploadRequest;
 import com.dk0124.project.article.application.port.in.TranslationArticleDeleteUsecase;
 import com.dk0124.project.article.application.port.in.TranslationArticleQuery;
 import com.dk0124.project.article.application.port.in.TranslationArticleUpdateUsecase;

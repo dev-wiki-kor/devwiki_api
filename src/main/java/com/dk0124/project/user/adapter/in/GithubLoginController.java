@@ -3,7 +3,7 @@ package com.dk0124.project.user.adapter.in;
 import com.dk0124.project.global.config.security.csrf.ConditionalCsrfTokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import com.dk0124.project.user.adapter.in.dto.GithubLoginRequest;
-import com.dk0124.project.user.application.GithubLoginUsecase;
+import com.dk0124.project.user.application.port.in.GithubLoginUsecase;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

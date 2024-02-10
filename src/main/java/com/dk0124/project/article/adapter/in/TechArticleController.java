@@ -1,5 +1,7 @@
 package com.dk0124.project.article.adapter.in;
 
+import com.dk0124.project.article.adapter.in.dto.TechArticleUpdateRequest;
+import com.dk0124.project.article.adapter.in.dto.TechArticleUploadRequest;
 import com.dk0124.project.article.application.port.in.TechArticleService;
 import com.dk0124.project.article.domain.tech.TechArticleDetail;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.dk0124.project.user.application;
+package com.dk0124.project.user.application.port.in;
 
 import com.dk0124.project.user.adapter.in.dto.GithubUserJoinRequest;
 

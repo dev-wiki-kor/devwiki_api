@@ -1,6 +1,6 @@
 package com.dk0124.project.article.application.service;
 
-import com.dk0124.project.article.adapter.in.TranslationArticleUpdateRequest;
+import com.dk0124.project.article.adapter.in.dto.TranslationArticleUpdateRequest;
 import com.dk0124.project.article.application.port.in.TranslationArticleUpdateUsecase;
 import com.dk0124.project.article.application.port.out.ArticleVersionPort;
 import com.dk0124.project.article.application.port.out.VersionContentSavePort;

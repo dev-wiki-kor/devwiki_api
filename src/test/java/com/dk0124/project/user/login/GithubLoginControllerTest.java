@@ -4,7 +4,7 @@ package com.dk0124.project.user.login;
 import com.dk0124.project.global.config.security.csrf.ConditionalCsrfTokenRepository;
 import com.dk0124.project.user.adapter.in.GithubLoginController;
 import com.dk0124.project.user.adapter.in.dto.GithubLoginRequest;
-import com.dk0124.project.user.application.GithubLoginUsecase;
+import com.dk0124.project.user.application.port.in.GithubLoginUsecase;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;

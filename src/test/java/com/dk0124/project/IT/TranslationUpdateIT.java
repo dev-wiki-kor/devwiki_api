@@ -1,6 +1,6 @@
 package com.dk0124.project.IT;
 
-import com.dk0124.project.article.adapter.in.TranslationArticleUpdateRequest;
+import com.dk0124.project.article.adapter.in.dto.TranslationArticleUpdateRequest;
 import com.dk0124.project.article.adapter.out.entity.TranslationArticleEntity;
 import com.dk0124.project.article.adapter.out.entity.TranslationArticleVersionContentEntity;
 import com.dk0124.project.article.adapter.out.repository.TranslationArticleEntityRepository;

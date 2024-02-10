@@ -1,6 +1,6 @@
 package com.dk0124.project.article.application.service;
 
-import com.dk0124.project.article.adapter.in.TranslationArticleUploadRequest;
+import com.dk0124.project.article.adapter.in.dto.TranslationArticleUploadRequest;
 import com.dk0124.project.article.adapter.out.TranslationArticleUploadAdapter;
 import com.dk0124.project.article.application.port.in.TranslationArticleUploadUsecase;
 import com.dk0124.project.article.domain.TranslationArticleUploadCommand;
