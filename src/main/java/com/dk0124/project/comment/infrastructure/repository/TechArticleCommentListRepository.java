@@ -8,7 +8,6 @@ import com.dk0124.project.user.adapter.out.user.entity.QUserProfileEntity;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -27,7 +26,7 @@ public class TechArticleCommentListRepository {
         // 커서 조건 생성
         BooleanExpression cursorCondition = qComment.commentOrder.gt(cursor.getCommentOrder())
                 .or(qComment.commentOrder.eq(cursor.getCommentOrder())
-                        .and(qComment.numForSort.gt(cursor.getNumForSort())));
+                        .and(qComment.sortNumber.gt(cursor.getSortNumber())));
 
         return queryFactory
                 .select(Projections.constructor(TechArticleComment.class,
@@ -36,10 +35,10 @@ public class TechArticleCommentListRepository {
                         qComment.commentId,
                         qComment.content,
                         qComment.deleted,
-                        qComment.commentDeletedReason,
+                        qComment.deletedReason,
                         qComment.commentOrder,
                         qComment.level,
-                        qComment.numForSort,
+                        qComment.sortNumber,
                         qComment.parentId,
                         qComment.writerId
                       )
@@ -48,7 +47,7 @@ public class TechArticleCommentListRepository {
                 .join(qUser).on(qComment.writerId.eq(qUser.userMetaId))
                 .where(qComment.articleId.eq(articleId)
                         .and(cursorCondition))
-                .orderBy(qComment.commentOrder.asc(), qComment.numForSort.asc())
+                .orderBy(qComment.commentOrder.asc(), qComment.sortNumber.asc())
                 .limit(limit)
                 .fetch();
     }

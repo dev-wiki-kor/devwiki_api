@@ -35,10 +35,14 @@ public enum ExceptionCode {
     CANNOT_GENERATE_ARTICLE_VERSION(3007, "문서를 등록할 수 없습니다. 잠시 후 시도해 주세요."),
 
 
-    // 댓글 : 4000 ~ 4999
+    // 댓글, 리액셩 : 4000 ~ 4999
     INVALID_COMMENT_SIZE(4001, "댓글의 크기는 " + CommentConstant.COMMENT_MIN_SIZE + " 이상 " + CommentConstant.COMMENT_MAX_SIZE + " 미만이여야 해요"),
     COMMENT_NOT_EXIST(4002, "댓글이 존재하지 않습니다"),
     INVALID_COMMENT_ID(4003, "댓글 정보가 정확하지 않습니다."),
+
+    REACTION_NOT_EXIST(4500, "리액션 정보가 존재하지 않습니다."),
+
+
     //
     INTERNAL_SEVER_ERROR(9999,"서버 에러가 발생하였습니다. 관리자에게 문의해 주세요.");
 
