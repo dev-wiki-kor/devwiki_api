@@ -1,6 +1,7 @@
 package com.dk0124.project.global.exception;
 
 
+import com.dk0124.project.global.constants.CommentConstant;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -34,7 +35,12 @@ public enum ExceptionCode {
     CANNOT_GENERATE_ARTICLE_VERSION(3007, "문서를 등록할 수 없습니다. 잠시 후 시도해 주세요."),
 
 
-    INTERNAL_SEVER_ERROR(9999, "서버 에러가 발생하였습니다. 관리자에게 문의해 주세요.");
+    // 댓글 : 4000 ~ 4999
+    INVALID_COMMENT_SIZE(4001, "댓글의 크기는 " + CommentConstant.COMMENT_MIN_SIZE + " 이상 " + CommentConstant.COMMENT_MAX_SIZE + " 미만이여야 해요"),
+    COMMENT_NOT_EXIST(4002, "댓글이 존재하지 않습니다"),
+    INVALID_COMMENT_ID(4003, "댓글 정보가 정확하지 않습니다."),
+    //
+    INTERNAL_SEVER_ERROR(9999,"서버 에러가 발생하였습니다. 관리자에게 문의해 주세요.");
 
     private final int code;
     private final String message;
