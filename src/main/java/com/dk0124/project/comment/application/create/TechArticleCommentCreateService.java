@@ -4,10 +4,14 @@ import com.dk0124.project.article.exception.InvalidArticleIdException;
 import com.dk0124.project.comment.dto.TechArticleCommentCreateRequest;
 import com.dk0124.project.comment.exception.InvalidCommentIdException;
 import com.dk0124.project.comment.exception.InvalidCommentSizeException;
+import com.dk0124.project.comment.infrastructure.CommentHistory;
 import com.dk0124.project.comment.infrastructure.TechArticleCommentEntity;
+import com.dk0124.project.comment.infrastructure.repository.CommentHistoryRepository;
 import com.dk0124.project.comment.infrastructure.repository.TechArticleCommentEntityRepository;
 import com.dk0124.project.global.config.lock.DistributedLock;
+import com.dk0124.project.global.constants.ArticleType;
 import com.dk0124.project.global.constants.CommentConstant;
+import com.dk0124.project.global.constants.HistoryType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,25 +21,31 @@ public class TechArticleCommentCreateService implements TechArticleCommentCreate
 
     private final TechArticleCommentEntityRepository commentRepository;
 
+    private final CommentHistoryRepository historyRepository;
 
     @Override
     @DistributedLock(key = "'tech_article_comment_order_'+#request.articleId()")
     public void create(TechArticleCommentCreateRequest request, Long userId) {
         validateCreateReq(request);
+
+        TechArticleCommentEntity saved;
         if (request.parentCommentId() == null)
-            createComment(request, userId);
+            saved = createComment(request, userId);
         else
-            createReplyComment(request, userId);
+            saved = createReplyComment(request, userId);
+
+        saveHistory(request.articleId(), saved.getCommentId(), userId);
     }
 
-    public void createComment(TechArticleCommentCreateRequest request, Long userId) {
+
+    public TechArticleCommentEntity createComment(TechArticleCommentCreateRequest request, Long userId) {
         var order = generateCommentOrder(request.articleId());
         var comment = techCommentReqToEntity(request, order, userId, 0L, 0L);
-        commentRepository.save(comment);
+        return commentRepository.save(comment);
     }
 
 
-    public void createReplyComment(TechArticleCommentCreateRequest request, Long userId) {
+    public TechArticleCommentEntity createReplyComment(TechArticleCommentCreateRequest request, Long userId) {
         var parent = commentRepository.findById(request.parentCommentId())
                 .orElseThrow(InvalidCommentIdException::new);
 
@@ -43,7 +53,19 @@ public class TechArticleCommentCreateService implements TechArticleCommentCreate
 
         updateSortNumberOnPreceedingComments(parent.getArticleId(), parent.getCommentOrder(), nextSortNum);
 
-        commentRepository.save(techCommentReqToEntity(request, parent.getCommentOrder(), userId, parent.getLevel() + 1, nextSortNum));
+        return commentRepository.save(techCommentReqToEntity(request, parent.getCommentOrder(), userId, parent.getLevel() + 1, nextSortNum));
+    }
+
+    private void saveHistory(Long articleId, Long commentId, Long userId) {
+            historyRepository.save(
+                    CommentHistory.of(
+                            ArticleType.TECH,
+                            HistoryType.CREATE,
+                            userId,
+                            articleId,
+                            commentId
+                    )
+            );
     }
 
     private void updateSortNumberOnPreceedingComments(Long articleId, Long commentOrder, Long nextSortNum) {
@@ -52,7 +74,7 @@ public class TechArticleCommentCreateService implements TechArticleCommentCreate
 
     private Long getNextSortNumber(Long articleId, Long commentOrder, Long level, Long parentNumForSort) {
         var numForSort = commentRepository.findMaxSortNumberForLevel(articleId, commentOrder, level + 1);
-        return numForSort == null ? parentNumForSort +1 : numForSort + 1;
+        return numForSort == null ? parentNumForSort + 1 : numForSort + 1;
     }
 
 
