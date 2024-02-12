@@ -1,6 +1,7 @@
 package com.dk0124.project.comment.application.create;
 
 import com.dk0124.project.article.exception.InvalidArticleIdException;
+import com.dk0124.project.comment.application.adapter.CommentOrderPort;
 import com.dk0124.project.comment.dto.TechArticleCommentCreateRequest;
 import com.dk0124.project.comment.exception.InvalidCommentIdException;
 import com.dk0124.project.comment.exception.InvalidCommentSizeException;
@@ -21,6 +22,8 @@ public class TechArticleCommentCreateService implements TechArticleCommentCreate
 
     private final TechArticleCommentEntityRepository commentRepository;
 
+    private final CommentOrderPort commentOrderPort;
+
     private final CommentHistoryRepository historyRepository;
 
     @Override
@@ -39,7 +42,7 @@ public class TechArticleCommentCreateService implements TechArticleCommentCreate
 
 
     public TechArticleCommentEntity createComment(TechArticleCommentCreateRequest request, Long userId) {
-        var order = generateCommentOrder(request.articleId());
+        var order = commentOrderPort.generateNextCommentOrder(request.articleId());
         var comment = techCommentReqToEntity(request, order, userId, 0L, 0L);
         return commentRepository.save(comment);
     }
@@ -49,38 +52,23 @@ public class TechArticleCommentCreateService implements TechArticleCommentCreate
         var parent = commentRepository.findById(request.parentCommentId())
                 .orElseThrow(InvalidCommentIdException::new);
 
-        var nextSortNum = getNextSortNumber(request.articleId(), parent.getCommentOrder(), parent.getLevel(), parent.getSortNumber());
+        var nextSortNum = commentOrderPort.generateNextSortNumberOnLevel(request.articleId(), parent.getCommentOrder(), parent.getLevel() + 1);
 
-        updateSortNumberOnPreceedingComments(parent.getArticleId(), parent.getCommentOrder(), nextSortNum);
+        commentOrderPort.updatePreceedingSortNumber(parent.getArticleId(), parent.getCommentOrder(), nextSortNum);
 
         return commentRepository.save(techCommentReqToEntity(request, parent.getCommentOrder(), userId, parent.getLevel() + 1, nextSortNum));
     }
 
     private void saveHistory(Long articleId, Long commentId, Long userId) {
-            historyRepository.save(
-                    CommentHistory.of(
-                            ArticleType.TECH,
-                            HistoryType.CREATE,
-                            userId,
-                            articleId,
-                            commentId
-                    )
-            );
-    }
-
-    private void updateSortNumberOnPreceedingComments(Long articleId, Long commentOrder, Long nextSortNum) {
-        commentRepository.incrementNumForSort(articleId, commentOrder, nextSortNum);
-    }
-
-    private Long getNextSortNumber(Long articleId, Long commentOrder, Long level, Long parentNumForSort) {
-        var numForSort = commentRepository.findMaxSortNumberForLevel(articleId, commentOrder, level + 1);
-        return numForSort == null ? parentNumForSort + 1 : numForSort + 1;
-    }
-
-
-    private Long generateCommentOrder(Long articleId) {
-        var currentMaxOrder = commentRepository.findMaxOrderByArticleId(articleId);
-        return currentMaxOrder == null ? 0 : currentMaxOrder + 1;
+        historyRepository.save(
+                CommentHistory.of(
+                        ArticleType.TECH,
+                        HistoryType.CREATE,
+                        userId,
+                        articleId,
+                        commentId
+                )
+        );
     }
 
     private void validateCreateReq(TechArticleCommentCreateRequest request) {
