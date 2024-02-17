@@ -23,6 +23,7 @@ public class UserProfileEntity extends BaseEntity {
     @Column(name = "USER_META_ID")
     private Long userMetaId;
 
+    @Column(name = "USER_RANK")
     private String rank;
 
     private String nickname;

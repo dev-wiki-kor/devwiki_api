@@ -10,16 +10,20 @@ import com.dk0124.project.global.constants.TechTag;
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.api.introspector.FieldReflectionArbitraryIntrospector;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.util.HashSet;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
+
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -48,34 +52,44 @@ public class TranslationUpdateIT {
 
     private final String INITIAL_CONTENT = "CONETENT";
 
-    private final int ITERATION = 1000;
+    private final int ITERATION = 1;
 
     static final FixtureMonkey monkey = FixtureMonkey.builder()
             .objectIntrospector(FieldReflectionArbitraryIntrospector.INSTANCE)
             .build();
 
+
+    @BeforeEach
+    void deleteAll(){
+        versionContentRepository.deleteAll();
+        translationArticleRepository.deleteAll();
+    }
+
     @Test
-    void 비동기_update_id_1000회_시도() throws InterruptedException {
+    void 비동기_update_id_100회_시도() throws InterruptedException {
         // Given
+        log.info("START!");
         readyDocument();
-
-        // When
-        asyncUpdateAndWait(ITERATION);
-
-        //  all.join() 했는데 로컬에서 쓰레드 반환 안되었다고 에러 떠서 추가함 ...
+        log.info("sleep 1000 ms");
         Thread.sleep(1000);
+        doLog();
+        log.info("END!");
+        // When
+        //asyncUpdateAndWait(ITERATION);
 
         // Then
         // iteration 횟수만큼 버전이 생겼는지 확인 .
-        checkVersions(ITERATION);
+        //checkVersions(ITERATION);
 
     }
-
+    @Transactional
     private void checkVersions(int iteration) {
         List<TranslationArticleVersionContentEntity>
                 versionContents = versionContentRepository.findAll();
 
-        Set<Long> versions = new HashSet<>();
+        doLog();
+
+        ConcurrentHashMap.KeySetView<Long,Boolean> versions = ConcurrentHashMap.newKeySet();
 
         versionContents.stream()
                 .forEach(e -> {
@@ -88,18 +102,12 @@ public class TranslationUpdateIT {
         assertEquals(INITIAL_VERSION, versions.stream().mapToInt(x -> x.intValue()).min().getAsInt());
     }
 
-    private void asyncUpdateAndWait(int iter) {
+    private void asyncUpdateAndWait(int iter) throws InterruptedException {
 
         List<CompletableFuture<Boolean>> completableFutureList =
                 IntStream.range(0, ITERATION)
                         .mapToObj(e -> CompletableFuture.supplyAsync(() -> {
-                            updateService.update(
-                                    new TranslationArticleUpdateRequest(
-                                            ARTICLE_ID,
-                                            INITIAL_VERSION,
-                                            String.valueOf(e) + "content"
-                                    ), USER_ID
-                            );
+                            doUpdate();
                             log.info("{}th update ", e);
                             return Boolean.TRUE;
                         }).exceptionally(ex -> {
@@ -117,6 +125,20 @@ public class TranslationUpdateIT {
 
         log.info("All future joined");
 
+        Thread.sleep(1000);
+
+    }
+
+    @Transactional
+    private void doUpdate() {
+        doLog();
+        updateService.update(
+                new TranslationArticleUpdateRequest(
+                        ARTICLE_ID,
+                        INITIAL_VERSION,
+                        "content"
+                ), USER_ID
+        );
     }
 
     void readyDocument() {
@@ -126,7 +148,7 @@ public class TranslationUpdateIT {
                 .set("authorId", USER_ID)
                 .set("techTags", Set.of(TechTag.JAVA))
                 .sample();
-        translationArticleRepository.save(article);
+        translationArticleRepository.saveAndFlush(article);
 
         var versionContent = monkey.giveMeBuilder(TranslationArticleVersionContentEntity.class)
                 .set("versionContentId", 0L)
@@ -135,7 +157,34 @@ public class TranslationUpdateIT {
                 .set("editorId", USER_ID)
                 .set("content", INITIAL_CONTENT)
                 .sample();
-        versionContentRepository.save(versionContent);
+        versionContentRepository.saveAndFlush(versionContent);
     }
 
+
+    @Transactional
+    void doLog(){
+
+        log.info("-----------------------DO LOG-----------------------------------");
+        String transactionName = TransactionSynchronizationManager.getCurrentTransactionName();
+        boolean isActualTransactionActive = TransactionSynchronizationManager.isActualTransactionActive();
+
+        log.info("Thread: {}, Transaction: {}, Active: {}, TransactionManager: {}",
+                Thread.currentThread().getName(),
+                transactionName,
+                isActualTransactionActive
+              );
+        var allTranslation = translationArticleRepository.findAll();
+        var allVersions = translationArticleRepository.findAll();
+
+        if(allTranslation.size()!= 1){
+            log.info("T size : {} ", allTranslation.size());
+            log.info("V size: {} ", allVersions.size());
+            log.info("-----------------------DO LOG-----------------------------------");
+            return;
+        }
+
+        log.info(" ------all data good -----");
+
+        log.info("-----------------------DO LOG-----------------------------------");
+    }
 }

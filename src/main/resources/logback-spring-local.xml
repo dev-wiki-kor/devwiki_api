@@ -26,11 +26,17 @@
     </appender>
     -->
 
+    <logger name="org.springframework.transaction" level="DEBUG">
+        <appender-ref ref="LOCAL_CONSOLE"/>
+    </logger>
 
 
-    <root level="INFO">
+    <root level="DEBUG">
         <!--<appender-ref ref="CONSOLE"/> -->
         <appender-ref ref="LOCAL_CONSOLE"/>
+
+        <logger name="org.springframework.transaction" level="DEBUG"/>
+        <logger name="org.springframework.orm.jpa" level="DEBUG"/>
     </root>
 
 </included>
