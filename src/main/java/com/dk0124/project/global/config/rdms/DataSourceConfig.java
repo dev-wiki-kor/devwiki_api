@@ -2,21 +2,18 @@ package com.dk0124.project.global.config.rdms;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class DataSourceConfig {
     @Bean
-    @ConfigurationProperties(prefix = "spring.datasource.hikari")
     public HikariConfig coreHikariConfig() {
         return new HikariConfig();
     }
 
     @Bean
-    public HikariDataSource coreDataSource(@Qualifier("coreHikariConfig") HikariConfig config) {
+    public HikariDataSource dataSource(HikariConfig config) {
         return new HikariDataSource(config);
     }
 }

@@ -7,14 +7,11 @@ import com.dk0124.project.article.adapter.out.repository.TranslationArticleVersi
 import com.dk0124.project.article.exception.InvalidArticleIdException;
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.api.introspector.FieldReflectionArbitraryIntrospector;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Comparator;
 import java.util.List;
@@ -49,11 +46,6 @@ public class ArticleVersionAdapterTest {
     }
 
 
-    @AfterEach
-    void deleteAll() {
-        repository.deleteAll();
-
-    }
 
 
     @Test

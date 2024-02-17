@@ -1,4 +1,4 @@
-package com.dk0124.project.user.adapter.out.user;
+package com.dk0124.project.article.adapter.out;
 
 import com.dk0124.project.article.application.port.out.AuthorPort;
 import com.dk0124.project.article.domain.Author;
