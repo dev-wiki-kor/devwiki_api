@@ -25,7 +25,6 @@ public class DistributedLockAop {
     private final RedissonClient redissonClient;
     private final LockManageTransaction lockManageTransaction;
 
-    static int count = 0 ;
 
     @Around("@annotation(com.dk0124.project.global.config.lock.DistributedLock)")
     public Object lock(final ProceedingJoinPoint joinPoint) throws Throwable {
@@ -37,18 +36,19 @@ public class DistributedLockAop {
                 DistributedLockKeyParser.getDynamicValue(signature.getParameterNames(), joinPoint.getArgs(),
                         distributedLock.key());
 
-        int scope = count ++ ;
 
         RLock rLock = redissonClient.getLock(key);
 
         try {
-            log.info("Distributed lock  : try lock from scope  {}" , scope);
+            log.info("TRY Lock For distributed lock on {}", Thread.currentThread());
             boolean available = rLock.tryLock(distributedLock.waitTime(), distributedLock.leaseTime(),
                     distributedLock.timeUnit());
-            if (!available)
+            if (!available) {
+                log.error("FAIL Lock For distributed lock on {}", Thread.currentThread());
                 return false;
+            }
 
-            log.info("Distributed lock  :obtained lock from scope  {}" , scope);
+            log.error("GET Lock For distributed lock on {}", Thread.currentThread());
             return lockManageTransaction.proceed(joinPoint);
         } catch (InterruptedException e) {
             throw new InterruptedException();
