@@ -23,11 +23,20 @@ spring.config.activate.on-profile: local
 spring:
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     properties:
       hibernate:
         format_sql: false
         show_sql: false
+
+
+  datasource:
+    hikari:
+      jdbc-url: jdbc:mysql://localhost:3306/dev_wiki?useSSL=false&allowPublicKeyRetrieval=true
+      username: devwiki
+      password: devwiki
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
   h2:
     console:
       enabled: true
@@ -43,10 +52,12 @@ spring:
       flush-mode: on_save
 
 
-
 logging:
   level:
     web: debug
+    org.springframework.transaction: trace
+    org.springframework.transaction.interceptor: trace
+    org.springframework.orm.jpa: trace
 
 app:
   var:
@@ -54,15 +65,6 @@ app:
     login-session-user-attribute : USER_INFO
     session-refresh-duration : 86400
 
-storage:
-  datasource:
-    core:
-      driver-class-name: org.h2.Driver
-      jdbc-url: jdbc:h2:mem:testdb;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-      username: sa
-      pool-name: core-db-pool
-      data-source-properties:
-        rewriteBatchedStatements: true
 
 lombok:
   anyConstructor:

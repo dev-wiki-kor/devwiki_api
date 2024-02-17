@@ -39,15 +39,16 @@ public class DistributedLockAop {
 
         int scope = count ++ ;
 
-        log.info("obtain lock frome scope  {}" , scope);
         RLock rLock = redissonClient.getLock(key);
 
         try {
+            log.info("Distributed lock  : try lock from scope  {}" , scope);
             boolean available = rLock.tryLock(distributedLock.waitTime(), distributedLock.leaseTime(),
                     distributedLock.timeUnit());
             if (!available)
                 return false;
 
+            log.info("Distributed lock  :obtained lock from scope  {}" , scope);
             return lockManageTransaction.proceed(joinPoint);
         } catch (InterruptedException e) {
             throw new InterruptedException();

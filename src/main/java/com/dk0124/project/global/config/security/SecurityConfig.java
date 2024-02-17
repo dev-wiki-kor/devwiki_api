@@ -38,7 +38,6 @@ import java.util.Arrays;
  * - 로그인, 가입 기능에 대해서 CSRF 및 인증 필터 적용 제외
  */
 @Configuration
-@EnableWebSecurity(debug = true)
 public class SecurityConfig {
 
 
