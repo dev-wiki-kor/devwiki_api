@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface TranslationArticleVersionContentEntityRepository extends JpaRepository<TranslationArticleVersionContentEntity, Long> {
@@ -18,8 +19,12 @@ public interface TranslationArticleVersionContentEntityRepository extends JpaRep
     int updateViewCount(@Param("articleId") Long articleId, @Param("version") Long version, @Param("version_") Long version_);
 
 
-    @Query("SELECT MAX(v.version) FROM TranslationArticleVersionContentEntity v WHERE v.articleId = :articleId GROUP BY v.articleId")
+    @Query(value = "SELECT MAX(v.version) FROM article_version_contents v WHERE v.article_id = :articleId GROUP BY v.article_id", nativeQuery = true)
     Long findMaxVersionByArticleId(@Param("articleId") Long articleId);
+
+    // for test
+    List<TranslationArticleVersionContentEntity> findAllByArticleId(Long articleId);
+
 
     void deleteByArticleIdAndVersion(Long articleId, Long version);
 

@@ -13,7 +13,7 @@ import org.hibernate.annotations.Where;
 @Table(name = "article_version_contents")
 @NoArgsConstructor
 @Getter
-@SQLDelete(sql = "UPDATE Tarticle_version_contents SET deleted = true WHERE ARTICLE_VERSION_CONTENT_ID = ?")
+@SQLDelete(sql = "UPDATE article_version_contents SET deleted = true WHERE ARTICLE_VERSION_CONTENT_ID = ?")
 @Where(clause = "deleted = false")
 public class TranslationArticleVersionContentEntity extends BaseEntity {
 

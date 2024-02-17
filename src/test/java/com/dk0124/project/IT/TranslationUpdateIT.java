@@ -52,7 +52,7 @@ public class TranslationUpdateIT {
 
     private final String INITIAL_CONTENT = "CONETENT";
 
-    private final int ITERATION = 1;
+    private final int ITERATION = 100;
 
     static final FixtureMonkey monkey = FixtureMonkey.builder()
             .objectIntrospector(FieldReflectionArbitraryIntrospector.INSTANCE)
@@ -75,11 +75,11 @@ public class TranslationUpdateIT {
         doLog();
         log.info("END!");
         // When
-        //asyncUpdateAndWait(ITERATION);
+        asyncUpdateAndWait(ITERATION);
 
         // Then
         // iteration 횟수만큼 버전이 생겼는지 확인 .
-        //checkVersions(ITERATION);
+        checkVersions(ITERATION);
 
     }
     @Transactional
@@ -147,6 +147,7 @@ public class TranslationUpdateIT {
                 .set("title", INITIAL_TITLE)
                 .set("authorId", USER_ID)
                 .set("techTags", Set.of(TechTag.JAVA))
+                .set("deleted", Boolean.FALSE)
                 .sample();
         translationArticleRepository.saveAndFlush(article);
 
@@ -156,6 +157,7 @@ public class TranslationUpdateIT {
                 .set("version", INITIAL_VERSION)
                 .set("editorId", USER_ID)
                 .set("content", INITIAL_CONTENT)
+                .set("deleted", Boolean.FALSE)
                 .sample();
         versionContentRepository.saveAndFlush(versionContent);
     }
@@ -173,18 +175,5 @@ public class TranslationUpdateIT {
                 transactionName,
                 isActualTransactionActive
               );
-        var allTranslation = translationArticleRepository.findAll();
-        var allVersions = translationArticleRepository.findAll();
-
-        if(allTranslation.size()!= 1){
-            log.info("T size : {} ", allTranslation.size());
-            log.info("V size: {} ", allVersions.size());
-            log.info("-----------------------DO LOG-----------------------------------");
-            return;
-        }
-
-        log.info(" ------all data good -----");
-
-        log.info("-----------------------DO LOG-----------------------------------");
     }
 }

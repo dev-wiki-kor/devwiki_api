@@ -12,7 +12,6 @@ public class ArticleVersionAdapter implements ArticleVersionPort {
 
     private final TranslationArticleVersionContentEntityRepository versionContentRepository;
 
-
     @Override
     public Long newVersion(Long articleId) {
         Long maxVersion = versionContentRepository.findMaxVersionByArticleId(articleId);

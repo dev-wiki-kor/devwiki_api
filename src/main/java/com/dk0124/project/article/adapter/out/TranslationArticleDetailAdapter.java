@@ -23,6 +23,7 @@ public class TranslationArticleDetailAdapter implements TranslationArticleDetail
 
     @Override
     public TranslationArticleDetail getDetail(Long articleId, Long version) {
+
         var article = articleRepository.findById(articleId)
                 .orElseThrow(InvalidArticleIdException::new);
 
