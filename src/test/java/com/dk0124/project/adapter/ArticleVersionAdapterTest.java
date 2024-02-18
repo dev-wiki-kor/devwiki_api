@@ -46,8 +46,6 @@ public class ArticleVersionAdapterTest {
     }
 
 
-
-
     @Test
     public void 정상_버전_획득() {
         saveNormalArticleData();

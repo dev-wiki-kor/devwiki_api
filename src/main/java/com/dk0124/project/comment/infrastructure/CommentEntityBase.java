@@ -64,4 +64,7 @@ public class CommentEntityBase extends BaseEntity {
     @Column(name = "writer_id")
     private Long writerId;
 
+    @Column(name = "child_count")
+    private Long childCount = 0L;
+
 }
