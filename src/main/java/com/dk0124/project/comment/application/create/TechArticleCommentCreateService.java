@@ -52,9 +52,10 @@ public class TechArticleCommentCreateService implements TechArticleCommentCreate
         var parent = commentRepository.findById(request.parentCommentId())
                 .orElseThrow(InvalidCommentIdException::new);
 
-        var nextSortNum = commentOrderPort.generateNextSortNumberOnLevel(request.articleId(), parent.getCommentOrder(), parent.getLevel() + 1);
+        var nextSortNum = commentOrderPort.generateNextSortNumber(request.articleId(), parent.getCommentId());
 
-        commentOrderPort.updatePreceedingSortNumber(parent.getArticleId(), parent.getCommentOrder(), nextSortNum);
+        commentOrderPort.updatePrecedingSortNumber(parent.getArticleId(), parent.getCommentOrder(), nextSortNum);
+        commentOrderPort.updateChildCountOfSucceedingParents(parent.getCommentId());
 
         return commentRepository.save(techCommentReqToEntity(request, parent.getCommentOrder(), userId, parent.getLevel() + 1, nextSortNum));
     }

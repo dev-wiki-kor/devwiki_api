@@ -15,13 +15,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class TranslationArticleUpdateService implements TranslationArticleUpdateUsecase {
 
     private final ArticleVersionPort articleVersionPort;
 
     private final VersionContentSavePort versionContentSavePort;
-
 
     @Override
     @Transactional

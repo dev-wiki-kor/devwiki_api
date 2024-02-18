@@ -68,12 +68,8 @@ public class TranslationUpdateIT {
     @Test
     void 비동기_update_id_100회_시도() throws InterruptedException {
         // Given
-        log.info("START!");
         readyDocument();
-        log.info("sleep 1000 ms");
-        Thread.sleep(1000);
-        doLog();
-        log.info("END!");
+
         // When
         asyncUpdateAndWait(ITERATION);
 
@@ -86,8 +82,6 @@ public class TranslationUpdateIT {
     private void checkVersions(int iteration) {
         List<TranslationArticleVersionContentEntity>
                 versionContents = versionContentRepository.findAll();
-
-        doLog();
 
         ConcurrentHashMap.KeySetView<Long,Boolean> versions = ConcurrentHashMap.newKeySet();
 
@@ -177,3 +171,4 @@ public class TranslationUpdateIT {
               );
     }
 }
+
