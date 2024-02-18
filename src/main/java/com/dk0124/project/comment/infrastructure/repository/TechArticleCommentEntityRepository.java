@@ -6,14 +6,16 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface TechArticleCommentEntityRepository extends JpaRepository<TechArticleCommentEntity, Long> {
 
 
     @Query("SELECT MAX(v.commentOrder) FROM TechArticleCommentEntity v WHERE v.articleId = :articleId GROUP BY v.articleId")
     Long findMaxOrderByArticleId(@Param("articleId") Long articleId);
 
-    @Query("SELECT MAX(v.sortNumber) from TechArticleCommentEntity v where v.articleId = :articleId and v.commentOrder = :commentOrder and v.level = :level")
-    Long findMaxSortNumberForLevel(Long articleId, Long commentOrder, long level);
+    @Query("SELECT MAX(v.sortNumber) from TechArticleCommentEntity v where v.articleId = :articleId and v.commentOrder = :commentOrder and v.level = :level and v.parentId = :parentId")
+    Long findMaxSortNumberForLevel(Long articleId, Long commentOrder, long level, long parentId);
 
     @Modifying
     @Query("UPDATE TechArticleCommentEntity a SET a.sortNumber= a.sortNumber + 1 " +
@@ -22,4 +24,13 @@ public interface TechArticleCommentEntityRepository extends JpaRepository<TechAr
                              @Param("commentOrder") Long commentOrder,
                              @Param("sortNumber") Long sortNumber);
 
+    List<TechArticleCommentEntity > findByArticleIdAndCommentOrderAndLevelAndParentId(
+            Long articleId,
+            Long commentOrder, Long level, Long parentId
+    );
+
+    @Modifying
+    @Query("UPDATE TechArticleCommentEntity a SET a.childCount= a.childCount + 1 " +
+            "WHERE a.commentId = :commentId")
+    void upChildCount(@Param("commentId") Long commentId);
 }

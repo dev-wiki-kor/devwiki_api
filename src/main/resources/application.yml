@@ -9,8 +9,8 @@ spring:
 
 app:
   var:
-    session-loc : session_loc
-    session-active : 86400  #second , 1day
+    session-loc: session_loc
+    session-active: 86400  #second , 1day
 
     github-client-id: ${GITHUB_CLIENT_ID}
     github-client-secret: ${GITHUB_CLIENT_SECRET}
@@ -29,6 +29,12 @@ spring:
         format_sql: false
         show_sql: false
 
+  datasource:
+    hikari:
+      jdbc-url: jdbc:h2:mem:testdb
+      username: sa
+      password:
+      driver-class-name: org.h2.Driver
 
   h2:
     console:
@@ -48,15 +54,15 @@ spring:
 logging:
   level:
     web: debug
-    org.springframework.transaction: trace
-    org.springframework.transaction.interceptor: trace
-    org.springframework.orm.jpa: trace
+    org.springframework.transaction: info
+    org.springframework.transaction.interceptor: info
+    org.springframework.orm.jpa: info
 
 app:
   var:
-    login-session-id : JSESSIONID
-    login-session-user-attribute : USER_INFO
-    session-refresh-duration : 86400
+    login-session-id: JSESSIONID
+    login-session-user-attribute: USER_INFO
+    session-refresh-duration: 86400
 
 
 lombok:
